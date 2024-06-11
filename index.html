@@ -5,46 +5,142 @@
 <title>portfolio</title>
 	<style>
 		body {
-			font-size: 75px;
-			font: "Untitled Serif Bold"
+			/*cursor: url("./SVG/pointer.svg"), auto;*/
 		}
+		
+		.header {
+			font-size: 100px;
+			padding: 35px;
+			padding-bottom: 0px;
+			
+			text-align: center;
+			font-size: 50px;
+			font: "Untitled Serif Bold";
+		}
+		
+		.navbar {
+			position: -webkit-sticky;
+  			position: sticky;
+  			top: 0;
+			
+			font-size: 30px;
+			font: "Untitled Serif Regular";
+			
+			padding: 20px;
+            background-color: white;
+            display:flex;
+            flex-wrap:wrap;
+			justify-content: center;
+			line-height: 12px;
+            z-index: 1000; /* Ensures the navbar stays on top */
+        }
+        .navbar a {
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 20px 20px; /* Adjusted vertical padding to 20px */
+            text-decoration: none;
+			transition: background-color 0.5s ease;
+        }
+        .navbar a:hover {
+			color: white;
+			background-color: black;
+        }
+		
+		
+		
+        .container {
+            width: 80%;
+            margin: 60px auto 0; /* Adjusted top margin to bring content closer to the navbar */
+            padding: 20px;
+            background-color: #fff;
+            box-sizing: border-box;
+        }
+		
+		.row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: -10px;
+        }
+        .column {
+            flex: 50%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .column img {
+            width: 100%;
+            max-width: 100%; /* Ensures the image does not exceed the column width */
+            height: auto; /* Maintains aspect ratio */
+            display: block;
+            object-fit: cover; /* Ensure images cover the entire area while maintaining aspect ratio */
+        }
+		
+		.centredSubHeading {
+			font-size: 50px;
+			padding-bottom:20px;
+			font: "Untitled Serif Medium";
+		}
+		.introduction {
+			font: "Untitled Serif Regular";
+			text-align: center;
+			width: 100%;
+			height: 100%;
+			background-color: black;
+			color: white;
+			font-size: 20px;
+			padding-top: 70px;
+			padding-bottom: 70px;
+		}
+		
+		@media screen {
+            .column {
+                flex: 100%;
+            }
+        }
 	</style> 
 	
-</head>
+	
 
-<body>
-	<div class="navbar">
-        <a href="#home">Home</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+	
+	
+</head>
+	<div class="header">
+        <h1>Kevin Ying.</h1>
     </div>
-    <div class="container">
-        <div class="header">
-            <h1>My Portfolio</h1>
-        </div>
-        <div class="row">
-            <div class="column">
-                <img src="../../Portfolio/image1.jpg" alt="Image 1">
-            </div>
-            <div class="column">
-                <img src="../../Portfolio/image2.jpg" alt="Image 2">
-            </div>
-            <div class="column">
-                <img src="../../Portfolio/image3.jpg" alt="Image 3">
-            </div>
-        </div>
-        <div class="row">
-            <div class="column">
-                <img src="../../Portfolio/image4.jpg" alt="Image 4">
-            </div>
-            <div class="column">
-                <img src="../../Portfolio/image5.jpg" alt="Image 5">
-            </div>
-            <div class="column">
-                <img src="../../Portfolio/image6.jpg" alt="Image 6">
-            </div>
-        </div>
+	
+    <div class="navbar">
+        <a href="./index.html">Home;</a>
+        <a href="#portfolio">Projects;</a>
+        <a href="./friends.html">Friends;</a>
+        <a href="./contact.html">Contact.</a>
+    </div>
+<body>
+
+	<div class="introduction">
+		<div class="centredSubHeading">From Melbourne.</div>
+		<p>
+		I am a second year student at UC Berkeley, studying EECS. I am a Chinese-Australian, immigranted to Australia in 2015.
+		</p>
+		
+		<p>
+		I am interested in Cyber-Physical systems and Cybernetics.
+		</p>
+		
+
 	</div>
+
+	<div class="container">
+      <div class="row">
+            <div class="column">
+                <img src="image1.jpg" alt="Sample Image 1">
+            </div>
+            <div class="column text-column">
+                <h2>Column Title</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et nulla vel lorem gravida hendrerit eu ac ligula.</p>
+            </div>
+        </div>
+       
+    </div>
+		
 </body>
 </html>
