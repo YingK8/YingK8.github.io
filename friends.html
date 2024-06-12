@@ -2,6 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FFCC00">
 <title>Friends</title>
 </head>
 <style>
@@ -9,18 +11,60 @@
 		text-align: center;
 		font: "Untitled Serif Bold";
 		font-size: 75px;
+		background-color: #FFCC00;
+	}
+	h2 {
+		font-size: 10vw;
+		text-align: center;
+
 	}
 	.friends {
 		text-align: center;
 		font: "Untitled Serif Regular";
 		font-size: 50px;
 	}
+
+	
+		.navbar {
+			position: -webkit-sticky;
+  			position: sticky;
+  			top: 0;
+			
+			padding: 0px 0px 0px;
+			background-color: #FFCC00;
+			
+			font-size: 30px;
+			font: "Untitled Serif Regular";
+            display:flex;
+            flex-wrap:wrap;
+			justify-content: left;
+			line-height: 0px;
+            z-index: 1000; /* Ensures the navbar stays on top */
+        }
+        .navbar a {
+            display: block;
+            color: black;
+            text-align: left;
+            padding: 40px 20px 40px; /* Adjusted vertical padding to 20px */
+            text-decoration: none;
+			transition: background-color 0.5s ease;
+        }
+        .navbar a:hover {
+			color: white;
+			background-color: black;
+        }
+	
+	
 </style>
 	
 <body>
-	<div>
-	My friends are the best!
-	</div>
+	<div class="navbar">
+        <a href="./index.html">back</a>
+    </div>
+	
+	<h2>
+	Here are my best friends basically
+	</h2>
 	
 		<div class="friends">
 			

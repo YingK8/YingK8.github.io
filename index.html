@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>portfolio</title>
 	<style>
 		body {
@@ -38,7 +39,7 @@
             display: block;
             color: black;
             text-align: center;
-            padding: 20px 20px; /* Adjusted vertical padding to 20px */
+            padding: 20px 30px; /* Adjusted vertical padding to 20px */
             text-decoration: none;
 			transition: background-color 0.5s ease;
         }
@@ -55,48 +56,26 @@
             padding: 20px;
             background-color: #fff;
             box-sizing: border-box;
+			font: "Untitled Serif Regular";
+			text-align: center;
+        }
+
+		img {
+            width: 60%;
+    		height: auto;
+    		/*display: block; /* Removes bottom whitespace */
+			
         }
 		
-		.row {
-            display: flex;
-            flex-wrap: wrap;
-            margin: -10px;
-        }
-        .column {
-            flex: 50%;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-        .column img {
-            width: 100%;
-            max-width: 100%; /* Ensures the image does not exceed the column width */
-            height: auto; /* Maintains aspect ratio */
-            display: block;
-            object-fit: cover; /* Ensure images cover the entire area while maintaining aspect ratio */
-        }
-		
-		.centredSubHeading {
+		h2 {
 			font-size: 50px;
 			padding-bottom:20px;
 			font: "Untitled Serif Medium";
 		}
-		.introduction {
-			font: "Untitled Serif Regular";
-			text-align: center;
-			width: 100%;
-			height: 100%;
-			background-color: black;
-			color: white;
-			font-size: 20px;
-			padding-top: 70px;
-			padding-bottom: 70px;
-		}
 		
-		@media screen {
-            .column {
-                flex: 100%;
-            }
-        }
+		p {
+			font-size: 20px;
+		}
 	</style> 
 	
 	
@@ -105,41 +84,33 @@
 	
 </head>
 	<div class="header">
-        <h1>Kevin Ying.</h1>
+        <h1>Kevin Ying</h1>
     </div>
 	
     <div class="navbar">
-        <a href="./index.html">Home;</a>
-        <a href="#portfolio">Projects;</a>
-        <a href="./friends.html">Friends;</a>
-        <a href="./contact.html">Contact.</a>
+        <a href="./index.html">Home</a>
+        <a href="#portfolio">Projects</a>
+        <a href="./friends.html">Friends</a>
+		<a href="./Menifesto.html">Manifesto</a>
     </div>
 <body>
 
-	<div class="introduction">
-		<div class="centredSubHeading">From Melbourne.</div>
+	<div class="container">
+		<h2 class="centredSubHeading">From Melbourne.</h2>
 		<p>
-		I am a second year student at UC Berkeley, studying EECS. I am a Chinese-Australian, immigranted to Australia in 2015.
+		I am a second year EECS student at UC Berkeley. I am Chinese-Australian, immigranted to Australia in 2015.
 		</p>
-		
 		<p>
 		I am interested in Cyber-Physical systems and Cybernetics.
 		</p>
-		
 
 	</div>
-
+	
 	<div class="container">
-      <div class="row">
-            <div class="column">
-                <img src="image1.jpg" alt="Sample Image 1">
-            </div>
-            <div class="column text-column">
-                <h2>Column Title</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et nulla vel lorem gravida hendrerit eu ac ligula.</p>
-            </div>
-        </div>
-       
+        <img src="Photos/IMG_6225.jpeg" alt="Description of Image" />
+		<p>
+		I do things like that.
+		</p>
     </div>
 		
 </body>
