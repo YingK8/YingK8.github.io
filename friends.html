@@ -18,6 +18,10 @@
 		text-align: center;
 
 	}
+	p {
+		font-size: 20px;
+	}
+	
 	.friends {
 		text-align: center;
 		font: "Untitled Serif Regular";
@@ -30,22 +34,23 @@
   			position: sticky;
   			top: 0;
 			
-			padding: 0px 0px 0px;
-			background-color: #FFCC00;
-			
 			font-size: 30px;
 			font: "Untitled Serif Regular";
+			
+			padding: 10px;
+			padding-bottom: 10px;
+            background-color: #FFCC00;
             display:flex;
             flex-wrap:wrap;
-			justify-content: left;
-			line-height: 0px;
+			justify-content:left;
+			line-height: 12px;
             z-index: 1000; /* Ensures the navbar stays on top */
         }
         .navbar a {
             display: block;
             color: black;
             text-align: left;
-            padding: 40px 20px 40px; /* Adjusted vertical padding to 20px */
+            padding: 20px 20px; /* Adjusted vertical padding to 20px */
             text-decoration: none;
 			transition: background-color 0.5s ease;
         }
@@ -57,14 +62,16 @@
 		img {
             width: 10%;
     		height: auto;
-			opacity: 0.8
+			opacity: 1;
     		/*display: block; /* Removes bottom whitespace */
         }
+	
 	
 	
 </style>
 	
 <body>
+	<link rel="icon" type="image/x-icon" href="SVG/logo.svg">
 	<div class="navbar">
         <a href="./index.html">back</a>
     </div>
@@ -86,6 +93,11 @@
 			<p>How</p>
 			<p>I forgot</p>
 		</div>
+	
 	<img src="SVG/Daisy.svg" alt="Description of Image" />
+	<p>
+	©Kevin Ying 2024
+	</p>
+	
 </body>
 </html>
