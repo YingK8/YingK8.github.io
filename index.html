@@ -3,246 +3,243 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>portfolio</title>
-	<style>
-		/*-----------global themes-------------*/
-		:root {
-		  --background-color-white: white;
-		  --background-color-black: black;
-		  --font-color-white: white;
-		  --font-color-black: black;
-		}
-		@media (prefers-color-scheme: dark) {
-		  :root {
-			--background-color-white: black;
-			--background-color-black: white;
-			--font-color-white: black;
-			--font-color-black: white;
-		  }
-		}
-		/*-----------global themes-------------*/
-		
-		body {
-		  /*cursor: url("./SVG/pointer.svg"), auto;*/
-		  background-color: var(--background-color-white);
-		  color: var(--font-color-black);
-		  font-size: 20px;
-		  text-align: center;
-		  font: "Untitled Serif Regular";
-		}
-		.header {
-		  padding-bottom: 10px;
-		  text-align: center;
-		}
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="white" />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="black" />
+<title>Kevin Ying</title>
+    <style>
+        /*-----------global themes-------------*/
+        :root {
+          --background-color-white: white;
+          --background-color-black: black;
+          --font-color-white: white;
+          --font-color-black: black;
+        }
+        @media (prefers-color-scheme: dark) {
+          :root {
+            --background-color-white: black;
+            --background-color-black: white;
+            --font-color-white: black;
+            --font-color-black: white;
+          }
+        }
+        /*-----------global themes-------------*/
+        
+        body {
+          /*cursor: url("./SVG/pointer.svg"), auto;*/
+          background-color: var(--background-color-white);
+          color: var(--font-color-black);
+          font-size: 20px;
+          text-align: center;
+          font: "Untitled Serif Regular";
+        }
+        .header {
+          padding-top: 0px;
+          padding-bottom: 0px;
+          text-align: center;
+        }
 
-		/*-----------fonts-------------*/
-		p {
-		}
-		h1 {
-		  font-size: 120px;
-		  font: "Untitled Serif Bold";
-		  line-height: 90px;
-		}
-		h2 {
-		  font-size: 50px;
-		  padding-bottom: 5px;
-		  padding-top: 20px;
-		  text-align: center;
-		  font: "Untitled Serif Bold";
-		}
-		/*-----------fonts-------------*/
+        /*-----------fonts-------------*/
+        h1 {
+          font-size: 120px;
+          font: "Untitled Serif Bold";
+          line-height: 90px;
+        }
+        h2 {
+          font-size: 50px;
+          padding-bottom: 5px;
+          padding-top: 20px;
+          text-align: center;
+          font: "Untitled Serif Bold";
+        }
+        /*-----------fonts-------------*/
 
-		/*-----------navbar-------------*/
-		.navbar {
-		  position: -webkit-sticky;
-		  position: sticky;
-		  top: 0;
+        /*-----------navbar-------------*/
+        .navbar {
+          position: -webkit-sticky;
+          position: sticky;
+          top: 0;
 
-		  /*font-size: 25px;*/
-		  font: "Untitled Serif Regular";
+          /*font-size: 25px;*/
+          font: "Untitled Serif Regular";
 
-		  padding: 5px;
-		  background-color: var(--background-color-white);
-		  display: flex;
-		  flex-wrap: wrap;
-		  justify-content:space-evenly;
-		  line-height: 12px;
-		  z-index: 1000; /* Ensures the navbar stays on top */
-		}
-		.navbar a {
-		  display: block;
-		  color: var(--font-color-black);
-		  text-align: center;
-		  padding: 15px 15px; /* Adjusted vertical padding to 20px */
-		  text-decoration: none;
-		  transition: background-color 0.5s ease;
-		  border-radius: 5px;
-		}
-		.navbar a:hover {
-		  color: var(--font-color-white);
-		  background-color: var(--background-color-black);
-		}
-		/*-----------navbar-------------*/
+          padding: 5px;
+          background-color: var(--background-color-white);
+          display: flex;
+          flex-wrap: wrap;
+          justify-content:space-evenly;
+          line-height: 12px;
+          z-index: 1000; /* Ensures the navbar stays on top */
+        }
+        .navbar a {
+          display: block;
+          color: var(--font-color-black);
+          text-align: center;
+          padding: 15px 15px; /* Adjusted vertical padding to 20px */
+          text-decoration: none;
+          transition: background-color 0.5s ease;
+          /*border-radius: 5px;*/
+        }
+        .navbar a:hover {
+          color: var(--font-color-white);
+          background-color: var(--background-color-black);
+        }
+        /*-----------navbar-------------*/
 
-		.container {
-		  width: 100%;
-		  margin: 60px auto 0; /* Adjusted top margin to bring content closer to the navbar */
-		  padding-top: 20px;
-		  background-color: var(--background-color-white);
-		  box-sizing: border-box;
-		  font: "Untitled Serif Regular";
-		  text-align: center;
-		}
-		img {
-		  width: 60%;
-		  height: auto;
-		  opacity: 1;
-		  /*display: block; /* Removes bottom whitespace */
-		}
-		.flower {
-		  padding-top: 30px;
-		  width: 15%;
-		  height: auto;
-		  opacity: 1;
-		}
+        .container {
+          width: 100%;
+          margin: 60px auto 0; /* Adjusted top margin to bring content closer to the navbar */
+          padding-top: 20px;
+          /*background-color: var(--background-color-white);*/
+          box-sizing: border-box;
+          font: "Untitled Serif Regular";
+          text-align: center;
+        }
+        img {
+          width: 60%;
+          height: auto;
+          opacity: 1;
+          /*display: block; /* Removes bottom whitespace */
+        }
+        .bottom {
+          width: 80%;
+          height: auto;
+          opacity: 1;
+		  mix-blend-mode: difference;
+        }
 
-		/*--------------------portfolio panels--------------------*/
-		@import "https://unpkg.com/open-props" layer(design.system);
+        /*--------------------portfolio panels--------------------*/
+        @import "https://unpkg.com/open-props" layer(design.system);
 
-		@layer portfolioPanels {
-		  fieldset {
-			grid-template-columns: 
-			  var(--col-1, 2fr) 
-			  var(--col-2, 2fr) 
-			  var(--col-3, 2fr) 
-			  var(--col-4, 2fr);
+        @layer portfolioPanels {
+          fieldset {
+            grid-template-columns: 
+              var(--col-1, 2fr) 
+              var(--col-2, 2fr) 
+              var(--col-3, 2fr) 
+              var(--col-4, 2fr);
 
-			@media (prefers-reduced-motion: no-preference) {
-			  transition: grid-template-columns 1s ease;
-			}
+            @media (prefers-reduced-motion: no-preference) {
+              transition: grid-template-columns 1s ease;
+            }
 
-			&:has(label:nth-child(1):hover) {
-			  --col-1: 5fr;
-			}
-			&:has(label:nth-child(2):hover) {
-			  --col-2: 5fr;
-			}
-			&:has(label:nth-child(3):hover) {
-			  --col-3: 5fr;
-			}
-			&:has(label:nth-child(4):hover) {
-			  --col-4: 5fr;
-			}
+            &:has(label:nth-child(1):hover) {
+              --col-1: 5fr;
+            }
+            &:has(label:nth-child(2):hover) {
+              --col-2: 5fr;
+            }
+            &:has(label:nth-child(3):hover) {
+              --col-3: 5fr;
+            }
+            &:has(label:nth-child(4):hover) {
+              --col-4: 5fr;
+            }
 
-			> label {
-			  background-image: var(--_img);
-			  background-position: center;
-			  background-size: auto 125%;
-			}
-		  }
-		}
+            > label {
+              background-image: var(--_img);
+              background-position: center;
+              background-size: auto 130%;
+            }
+          }
+        }
 
-		@layer portfolioPanels.support {
-		  fieldset {
-			inline-size: 95%;
+        @layer portfolioPanels.support {
+          fieldset {
+            inline-size: 95%;
 
-			display: grid;
-			grid-auto-flow: column;
-			grid-template-rows: 60vh;
-			gap: 2vw;
-			border: none;
+            display: grid;
+            grid-auto-flow: column;
+            grid-template-rows: 40vh;
+            gap: 2vw;
+            border: none;
 
-			> label {
-			  cursor: pointer;
-			  border-radius: 10px;
-			  position: relative;
-				white-space: nowrap;
+            > label {
+              cursor: pointer;
+              /*border-radius: 10px;*/
+              position: relative;
+              white-space: nowrap;
 
-			  &:after {
-				content: attr(name);
-				position: absolute;
-				bottom: -40px;
-				left: 0;
-				/*background-color: var(--background-color-black);*/
-				color: var(--font-color-black);
-				padding: 11px 15px;
-				border-radius: 3px;
-				opacity: 0;
-				transition: opacity 0.8s;
-			  }
+              &:after {
+                content: attr(name);
+                position: absolute;
+                bottom: -40px;
+                left: -5px;
+                /*background-color: var(--background-color-black);*/
+                color: var(--font-color-black);
+                padding: 11px 15px;
+                /*border-radius: 3px;*/
+                opacity: 0;
+                transition: opacity 0.8s;
+              }
 
-			  &:hover:after {
-				opacity: 1;
-			  }
-			}
-		  }
-		}
-		/*--------------------portfolio panels--------------------*/
-	</style>
-	
-	<script>	
-		//---------------------portfolio-panels----------------------//
-		document.querySelectorAll('fieldset > label').forEach(label => {
-		  label.addEventListener('click', () => {
-			const selectedValue = label.getAttribute('name');
-			console.log(`Selected: ${selectedValue}`);
-			// Perform the action you need here with the selected value
-		  });
-		});
+              &:hover:after {
+                opacity: 1;
+				  
+              }
+            }
+          }
+        }
+        /*--------------------portfolio panels--------------------*/
+    </style>
+    
+    <script>    
+        //---------------------portfolio-panels----------------------//
+        document.addEventListener("DOMContentLoaded", function() {
+          document.querySelectorAll('fieldset > label').forEach(label => {
+            label.addEventListener('click', () => {
+              navigateTo(label);
+            });
+          });
+        });
 
-		// this code is for making the portfolio panels clickable!
-		function navigateTo(label) {
-			// Navigate to the selected link
-			setTimeout(() => {window.location.href = label.value}, 300);
-		}
-		//---------------------portfolio-panels----------------------//
-	</script>
-	
-
-	
-	
+        // this code is for making the portfolio panels clickable!
+        function navigateTo(label) {
+            // Navigate to the selected link
+            const url = label.getAttribute('data-url');
+            setTimeout(() => {window.location.href = url}, 300);
+        }
+        //---------------------portfolio-panels----------------------//
+    </script>
 </head>
-	<link rel="icon" type="image/x-icon" href="SVG/logo.svg">
-	<div class="navbar">
-        <a href="./index.html">Home</a>
-        <a href="#portfolio">Projects</a>
-        <a href="./friends.html">Friends</a>
-    </div>
 <body>
-	<div class="header">
-        <h1>Kevin Ying</h1>
-		<p>B.S. &ensp; EECS &ensp; UC Berkeley 2027</p> 
+    <link rel="icon" type="image/x-icon" href="SVG/logo.svg">
+    <div class="navbar">
+		<a href="./friends.html">Friends</a>
+        <a href="#portfolio">Projects</a>
+		<a href="./friends.html">Contact</a>
+		<a href="./index.html">Home</a>
     </div>
 
-	<fieldset>
-	  <label name="Bike Telemetry" value="./friends.html" style="--_img: url(Photos/onOff.gif)" onclick="navigateTo(this)">
-	  </label>
-	  <label name="BBB Website" value="./friends.html" style="--_img: url(Photos/Website.png)" onclick="navigateTo(this)">
-	  </label>
-	  <label name="Monstera" value="./friends.html" style="--_img: url(Photos/IMG_6225.jpeg)" onclick="navigateTo(this)">
-	  </label>
-	  <label name="Pothos" value="./friends.html" style="--_img: url(https://assets.codepen.io/2585/pothos.jpeg)" onclick="navigateTo(this)">
-	  </label>
-	</fieldset>
-	
-	
-	
-	<div class="container">
-		<h2>Hello!</h2>
+    <fieldset>
+      <label name="Bike Telemetry, 2023" data-url="./friends.html" style="--_img: url(Photos/onOff.gif)"></label>
+      <label name="BBB Website, 2024" data-url="./friends.html" style="--_img: url(Photos/Website.png)"></label>
+      <label name="Monstera" data-url="./friends.html" style="--_img: url(Photos/IMG_6225.jpeg)"></label>
+      <label name="Pothos" data-url="./friends.html" style="--_img: url(https://assets.codepen.io/2585/pothos.jpeg)"></label>
+    </fieldset>
+
+    <div class="header">
+        <h1>Kevin Ying</h1>
+        <p>B.S. &ensp; EECS &ensp; UC Berkeley 2027</p> 
+    </div>
+
+    <div class="container">
+        <h2>Hello!</h2>
+        <p>
+        I am a second year engineering student at Berkeley. I am Chinese-Australian, immigrated to Melbourne, Australia in 2015.
+        </p>
 		<p>
-		I am a second year EECS student at UC Berkeley. I am Chinese-Australian, immigranted to Melbourne, Australia in 2015.
+		In my free time, I like to listen to music, think about things, and hang out with friends.
 		</p>
-		<p>
-		I am interested in Cyber-Physical systems and Cybernetics.
-		</p>
-	</div>
-	
-	
-	<div class="container">
-	<img class="flower" src="Photos/flowers/australian thing.png" alt="Description of Image" />
-	<p>
-	©Kevin Ying 2024
-	</p>
-	</div>
+        <p style="font-family: 'Untitled Serif Bold'">
+        I am interested in Cyber-Physical systems and Cybernetics.
+        </p>
+    </div>
+
+    <div class="container">
+        <img class="bottom" src="Photos/flowers/bottomScreen.png" alt="Description of Image" />
+        <p>
+        ©Kevin Ying 2024
+        </p>
+    </div>
 </body>
 </html>
