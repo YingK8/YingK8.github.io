@@ -10,15 +10,15 @@
         /*-----------global themes-------------*/
         :root {
           --background-color-white: rgb(245, 245, 247);
-          --background-color-black: black;
+          --background-color-black: #1E1E1E;
           --font-color-white: rgb(245, 245, 247);
-          --font-color-black: black;
+          --font-color-black: #1E1E1E;
         }
         @media (prefers-color-scheme: dark) {
           :root {
-            --background-color-white: black;
+            --background-color-white: #1E1E1E;
             --background-color-black: rgb(245, 245, 247);
-            --font-color-white: black;
+            --font-color-white: #1E1E1E;
             --font-color-black: rgb(245, 245, 247);
           }
         }
@@ -139,92 +139,56 @@
 
 
         /*--------------------portfolio panels--------------------*/
-        #album-rotator {
-			width: 80%;
-			white-space: nowrap;
-			overflow: hidden;
-			position: relative;
-			word-break: keep-all;
-			margin: 0 auto;
-			text-align: left;
+		.portfolioWrapper {
+			width: 85%;
+			display: flex; 
+			overflow-x: auto;
+			margin-left: auto;
+			margin-right: auto;
 			padding: 10px;
+			justify-content: space-around;
 		}
-
-		#album-rotator-holder {
-			position: relative;
-			user-select: none;
-			will-change: transform;
+		
+		.portfolioWrapper::-webkit-scrollbar{
+			width: 0;
 		}
-
-		.album-item {
-			word-break: keep-all;
-			background: var(--background-color-black);
-			position: relative;
-			width: 250px;
-			-webkit-user-drag: none;
-			user-drag: none;
-			height: 400px;
-			user-select: none;
-			/*border-radius: 10px;*/
+		
+		.portfolioWrapper a {
+			min-width: 200px;
+			height: 350px;
+			background-color: transparent;
+			
 			padding-bottom: 10px;
 			white-space: nowrap;
 			overflow: hidden;
 			display: inline-block;
 			margin: 0 10px 10px 0;
-			background-size: auto 82%;
+			background-size: auto 74%;
 			background-position: center 0%;
 			transition: all 0.2s ease-out;
 			transform: scale(1);
 		}
-		.album-item:hover {
+
+		.portfolioWrapper a:hover {
 			transform: scale(1.02);
 			opacity: 1;
 		}
 
-		.album-details {
-			position: absolute;
-			background: transparent;
-			top: 0px;
-			left: 0;
-			width: 100%;
-			padding: 1rem;
-			white-space: initial;
-			float: left;
-			box-sizing: border-box;
-			color: var(--font-color-black);
-			height: 100%;
-			font-size: 20px;
-			z-index: 99;
-		}
-
-		.title {
-			display: inline-block;
-			font-size: 50px;
-			width: 100%;
-		}
-
-		.subtitle {
-		}
 
 		.subtext {
+			color: var(--font-color-black);
 			font-size: 20px;
 			position: absolute;
 			bottom: 0;
 			left: 0;
 			padding: 5px 0px;
 			width: 100%;
+			white-space: initial;
+			letter-spacing: 0;
 			box-sizing: border-box;
 			background-color: var(--background-color-white);
 			text-align: left;
 		}
-
-		.icon {
-			font-size: 1rem;
-			line-height: 1rem;
-			display: block;
-			padding: 0 0 0.5rem 0;
-		}
-		<script src="https://kit.fontawesome.com/48764efa36.js" crossorigin="anonymous"></script>
         /*--------------------portfolio panels--------------------*/
     </style>
     
@@ -239,43 +203,36 @@
     </div>
 
     <div class="header">
-		<h1>Kevin Ying <br /> Design + Engineer</h1>
+		<h1>Kevin Ying <br /> Designer + Engineer</h1>
 		
         <p>B.S. &ensp; EECS &ensp; UC Berkeley 2027</p> 
     </div>
 	
-	<div id="album-rotator">
-    <div id="album-rotator-holder">
-        <a target="_top" class="album-item" href="./Telemetry Box.html" style="background-image: url(Photos/onOff.gif);">
+	
+	<div class="portfolioWrapper">
+		<a target="_top" class="item" href="./Telemetry Box.html" style="background-image: url(Photos/onOff.gif)">
             <span class="album-details">
                 <!-- <span class="icon"><i class="far fa-at"></i> </span> -->
                 <span class="subtext">Bike Telemetry <br /> 2024 <br /> Bike Builders of Berkeley</span>
             </span>
         </a>
-        <a target="_top" class="album-item" href="./friends.html" style="background-image: url(Photos/Website.png);">
+        <a target="_top" href="./friends.html" style="background-image: url(Photos/Website.png)">
             <span class="album-details">
 				<span class="subtext">Club Website <br /> 2024 <br /> Bike Builders of Berkeley</span>
             </span>
         </a>
-        <a target="_top" class="album-item" href="./friends.html" style="background-image: url(Photos/IMG_6225.jpeg);">
+        <a target="_top" href="./friends.html" style="background-image: url(Photos/IMG_6225.jpeg)">
             <span class="album-details">
                 <span class="subtext">Club Website <br /> 2024 <br /> Bike Builders of Berkeley</span>
             </span>
         </a>
-        <a target="_top" class="album-item" href="./friends.html">
-            <span class="album-details" style="background-image: url(https://assets.codepen.io/2585/pothos.jpeg)">
+        <a href="./friends.html" style="background-image: url(https://assets.codepen.io/2585/pothos.jpeg)">
+            <span class="album-details">
                 <span class="subtext">Club Website <br /> 2024 <br /> Bike Builders of Berkeley</span>
             </span>
         </a>
-        <a class="album-item" style="background-image: url(Photos/onOff.gif);" href="/friends.html">
-            <span class="album-details">
-                <span class="title">And</span>
-                <span class="subtitle">Finally..</span>
-                <span class="subtext">Some text to describe this item</span>
-            </span>
-        </a>
-    </div>
-</div>
+	</div>
+	
 	
 
     <div class="introContainer">
@@ -296,91 +253,4 @@
         <img class="bottom" src="Photos/flowers/longBottonScreen.png" alt="Description of Image" />
     </div>
 </body>
-	
-	<script>
-	document.addEventListener("DOMContentLoaded", function(e) {
-
-    // Get items
-    const el = document.querySelector(config.individualItem);
-    const elWidth = parseFloat(window.getComputedStyle(el).width) + parseFloat(window.getComputedStyle(el).marginLeft) + parseFloat(window.getComputedStyle(el).marginRight);
-    
-    // Track carousel
-    let mousedown = false;
-    let initialPosition = 0;
-    let selectedItem;
-    let currentDelta = 0;
-	
-	const config = {
-        individualItem: '.album-item', // class of individual item
-        carouselWidth: Math.floor(elWidth * 0.8), // in px
-        carouselId: '#album-rotator', // carousel selector
-        carouselHolderId: '#album-rotator-holder' // carousel holder selector
-    };
-
-    document.querySelectorAll(config.carouselId).forEach(function(item) { 
-        item.style.width = `${config.carouselWidth}px`;
-    });
-    
-    document.querySelectorAll(config.carouselId).forEach(function(item) {
-        item.addEventListener('pointerdown', function(e) {
-            mousedown = true;
-            selectedItem = item;
-            initialPosition = e.pageX;
-            currentDelta = parseFloat(item.querySelector(config.carouselHolderId).style.transform.split('translateX(')[1]) || 0;
-        }); 
-    });
-    
-    const scrollCarousel = function(change, currentDelta, selectedItem) {
-        let numberThatFit = Math.floor(config.carouselWidth / elWidth);
-        let newDelta = currentDelta + change;
-        let elLength = selectedItem.querySelectorAll(config.individualItem).length - numberThatFit;
-        if(newDelta <= 0 && newDelta >= -elWidth * elLength) {
-            selectedItem.querySelector(config.carouselHolderId).style.transform = `translateX(${newDelta}px)`;
-        } else {
-            if(newDelta <= -elWidth * elLength) {
-                selectedItem.querySelector(config.carouselHolderId).style.transform = `translateX(${-elWidth * elLength}px)`;
-            } else if(newDelta >= 0) {
-                selectedItem.querySelector(config.carouselHolderId).style.transform = `translateX(0px)`;
-            }
-        }
-    };
-
-    document.body.addEventListener('pointermove', function(e) {
-        if(mousedown === true && typeof selectedItem !== "undefined") {
-            let change = -(initialPosition - e.pageX);
-            scrollCarousel(change, currentDelta, document.body);
-            document.querySelectorAll(`${config.carouselId} a`).forEach(function(item) {
-                item.style.pointerEvents = 'none';
-            });
-        }
-    });
-    
-    ['pointerup', 'mouseleave'].forEach(function(item) {
-        document.body.addEventListener(item, function(e) {
-            selectedItem = undefined;
-            document.querySelectorAll(`${config.carouselId} a`).forEach(function(item) {
-                item.style.pointerEvents = 'all';
-            });
-        });
-    });
-
-    document.querySelectorAll(config.carouselId).forEach(function(item) {
-        let trigger = 0;
-        item.addEventListener('wheel', function(e) {
-            if(trigger !== 1) {
-                ++trigger;
-            } else {
-                let change = e.deltaX * -3;
-                let currentDelta = parseFloat(item.querySelector(config.carouselHolderId).style.transform.split('translateX(')[1]) || 0;
-                scrollCarousel(change, currentDelta, item);
-                trigger = 0;
-            }
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            return false;
-        });
-    });
-});
-</script>
-	
 </html>
