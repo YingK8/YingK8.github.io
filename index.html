@@ -31,27 +31,65 @@
           font-size: 20px;
           text-align: center;
           font: "Untitled Serif Regular";
+		  margin: 0;
+		  text-align: justify;
+			
+		  scrollbar-width: thin; /* "auto" or "thin" */
+          scrollbar-color: #888 var(--background-color-white); /* thumb and track color */
         }
+		
+		/* WebKit browsers */
+		::-webkit-scrollbar {
+			width: 12px; /* Width of the scrollbar */
+		}
+
+		::-webkit-scrollbar-track {
+			background: var(--background-color-white); /* Color of the scrollbar track */
+		}
+
+		::-webkit-scrollbar-thumb {
+			opacity: 0.3; /* Opacity value should be between 0 and 1 */
+			background-color: var(--background-color-black); /* Color of the scrollbar thumb */
+			border-radius: 6px; /* Roundness of the scrollbar thumb */
+			border: 4px solid var(--background-color-white); /* Creates space around the thumb */
+			transition: all 0.5 ease; /* Duration and easing function for the transition */
+		}
+
+		::-webkit-scrollbar-thumb:hover {
+			opacity: 0.5; /* Increase opacity on hover */
+		}
+		
         .header {
+		  margin: 0;
           padding-top: 0px;
-          padding-bottom: 0px;
+          padding-bottom: 20vh;
           text-align: center;
         }
 
         /*-----------fonts-------------*/
         h1 {
-          font-size: 120px;
+          font-size: clamp(70px, 10vw, 120px);
           font: "Untitled Serif Bold";
-          line-height: 120px;
 		  overflow-wrap: break-word;
         }
         h2 {
-          font-size: 50px;
-          padding-bottom: 5px;
-          padding-top: 20px;
+          font-size: clamp(20px, 5vw, 40px);
+          padding-bottom: 10px;
+          padding-top: 0px;
           text-align: center;
           font: "Untitled Serif Bold";
         }
+		h3 {
+		  font-size: clamp(22px, 4vw, 26px);
+	      padding-bottom: 0px;
+          padding-top: 20px;
+          text-align: center;
+          font: "Untitled Serif Bold";
+		}
+		p {
+		  font-size: clamp(18px, 2vw, 20px);
+		  color: var(--font-color-black);
+		}
         /*-----------fonts-------------*/
 
 		/*------------------intro------------------*/
@@ -61,11 +99,11 @@
           margin-left: auto;
 			
 	      width: 350px;
-          padding-top: 40px;
-		  padding-bottom: 180px;
+          padding-top: 30vh;
+		  padding-bottom: 30vh;
           /*background-color: var(--background-color-white);*/
           box-sizing: border-box;
-          text-align: justify;
+          
 		}
 		/*------------------intro------------------*/
 		
@@ -73,12 +111,11 @@
 		
 		.footerContainer {
 	      width: 100%;
-		  min-height: 20vw;
+		  min-height: 0vh;
           /*background-color: var(--background-color-white);*/
           box-sizing: border-box;
 		  background-size:cover;
           text-align: center;
-		 
 		}
 		
 		.bottom {
@@ -92,7 +129,7 @@
 			text-align: right;
 			padding-right: 2.5%;
 			padding-bottom: 0px;
-			margin-bottom: 0px;
+			margin-bottom: 2px;
 		}
 		/*------------------footer------------------*/
 		
@@ -113,6 +150,7 @@
           line-height: 12px;
           z-index: 1000; /* Ensures the navbar stays on top */
         }
+		
         .navbar a {
           display: block;
           color: var(--font-color-black);
@@ -139,31 +177,38 @@
 
 
         /*--------------------portfolio panels--------------------*/
+		.galleryStrip {
+			width: 100%;
+			box-sizing: border-box;
+			background-color: var(--background-color-white);
+		}
+		
 		.portfolioWrapper {
-			width: 85%;
+			width: 94%;
+			padding-right: 5px;
 			display: flex; 
+			overflow: hidden;
 			overflow-x: auto;
-			margin-left: auto;
-			margin-right: auto;
-			padding: 10px;
-			justify-content: space-around;
+			margin-left: 5%;
+			margin-right: 0;
+			justify-content: space-between;
+			
 		}
 		
 		.portfolioWrapper::-webkit-scrollbar{
-			width: 0;
+			display: none;
 		}
 		
 		.portfolioWrapper a {
-			min-width: 200px;
-			height: 350px;
-			background-color: transparent;
+			min-width: 400px;
+			height: 490px;
 			
 			padding-bottom: 10px;
 			white-space: nowrap;
 			overflow: hidden;
 			display: inline-block;
-			margin: 0 10px 10px 0;
-			background-size: auto 74%;
+			margin: 5px 25px 5px 5px;
+			background-size: auto 78%;
 			background-position: center 0%;
 			transition: all 0.2s ease-out;
 			transform: scale(1);
@@ -173,26 +218,47 @@
 			transform: scale(1.02);
 			opacity: 1;
 		}
-
-
-		.subtext {
-			color: var(--font-color-black);
-			font-size: 20px;
+		
+		.galleryText {
 			position: absolute;
-			bottom: 0;
+			bottom: 0px;
 			left: 0;
-			padding: 5px 0px;
+			padding: 5px 1px;
 			width: 100%;
-			white-space: initial;
-			letter-spacing: 0;
 			box-sizing: border-box;
 			background-color: var(--background-color-white);
+		}
+		
+		.galleryText h3 {
+			margin: 0;
+			line-height: 0;
+			color: var(--font-color-black);
+			box-sizing: border-box;
 			text-align: left;
+		}
+		
+		.galleryText p {
+			box-sizing: border-box;
+			text-align: left;
+			opacity: 60%;
 		}
         /*--------------------portfolio panels--------------------*/
     </style>
+	
+	
+
+
     
 </head>
+	<script src="https://code.nath.co/src/jQuery.min.js"></script>
+	<script src="https://rawgit.com/nathco/jQuery.scrollSpeed/master/jQuery.scrollSpeed.js"></script>
+	<script>
+		$(function() {  
+			// Custom Easing
+			jQuery.scrollSpeed(100, 800, 'easeOutCubic');
+		});
+	</script>
+	
 	<link rel="shortcut icon" type="image/x-icon" href="SVG/YINGlogo.ico">
 <body>
     <div class="navbar">
@@ -208,31 +274,43 @@
         <p>B.S. &ensp; EECS &ensp; UC Berkeley 2027</p> 
     </div>
 	
-	
-	<div class="portfolioWrapper">
-		<a target="_top" class="item" href="./Telemetry Box.html" style="background-image: url(Photos/onOff.gif)">
-            <span class="album-details">
-                <!-- <span class="icon"><i class="far fa-at"></i> </span> -->
-                <span class="subtext">Bike Telemetry <br /> 2024 <br /> Bike Builders of Berkeley</span>
-            </span>
-        </a>
-        <a target="_top" href="./friends.html" style="background-image: url(Photos/Website.png)">
-            <span class="album-details">
-				<span class="subtext">Club Website <br /> 2024 <br /> Bike Builders of Berkeley</span>
-            </span>
-        </a>
-        <a target="_top" href="./friends.html" style="background-image: url(Photos/IMG_6225.jpeg)">
-            <span class="album-details">
-                <span class="subtext">Club Website <br /> 2024 <br /> Bike Builders of Berkeley</span>
-            </span>
-        </a>
-        <a href="./friends.html" style="background-image: url(https://assets.codepen.io/2585/pothos.jpeg)">
-            <span class="album-details">
-                <span class="subtext">Club Website <br /> 2024 <br /> Bike Builders of Berkeley</span>
-            </span>
-        </a>
+	<div class="galleryStrip">
+		<div class="portfolioWrapper">
+			<a target="_top" class="item" href="./Telemetry Box.html" style="background-image: url(Photos/onOff.gif)">
+				<span class="album-details">
+					<!-- <span class="icon"><i class="far fa-at"></i> </span> -->
+					<span class="galleryText">
+						<h3>Telemetry V1</h3>
+						<p>2023 <br /> Bike Builders of Berkeley</p>
+					</span>
+				</span>
+			</a>
+			<a target="_top" href="./friends.html" style="background-image: url(Photos/Website.png)">
+				<span class="album-details">
+					<span class="galleryText">
+						<h3>Club Website</h3>
+						<p>2024 <br /> Bike Builders of Berkeley</p>
+					</span>
+				</span>
+			</a>
+			<a target="_top" href="./friends.html" style="background-image: url(Photos/IMG_6225.jpeg)">
+				<span class="album-details">
+					<span class="galleryText">
+						<h3>Club</h3>
+						<p>2024 <br /> Bike Builders of Berkeley</p>
+					</span>
+				</span>
+			</a>
+			<a href="./friends.html" style="background-image: url(https://assets.codepen.io/2585/pothos.jpeg)">
+				<span class="album-details">
+					<span class="galleryText">
+						<h3>Leaf</h3>
+						<p>2024 <br /> Leaf</p>
+					</span>
+				</span>
+			</a>
+		</div>
 	</div>
-	
 	
 
     <div class="introContainer">
@@ -250,7 +328,7 @@
         ©Kevin Ying 2024
         </p>
 		
-        <img class="bottom" src="Photos/flowers/longBottonScreen.png" alt="Description of Image" />
+<!--        <img class="bottom" src="Photos/flowers/longBottonScreen.png" alt="Description of Image" />-->
     </div>
 </body>
 </html>
