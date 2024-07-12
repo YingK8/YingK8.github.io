@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
 <head>
@@ -102,11 +103,36 @@
 		  padding-bottom: 40vh;
           /*background-color: var(--background-color-white);*/
           box-sizing: border-box;
-          
 		}
 		/*------------------intro------------------*/
 		
+        /*-----------language-------------*/
+        .language {
+          padding: 5px;
+          background-color: var(--background-color-white);
+          display: flex;
+          flex-wrap: wrap;
+          justify-content:right; /*space-evenly*/
+          line-height: 12px;
+          border-bottom: 1px solid var(--font-color-black);
+          z-index: 1000; /* Ensures the navbar stays on top */
+        }
 		
+        .language a {
+          display: block;
+          color: var(--font-color-black);
+          text-align: center;
+          padding: 15px 15px; /* Adjusted vertical padding to 20px */
+          text-decoration: none;
+          transition: background-color 0.5s ease;
+          /*border-radius: 5px;*/
+        }
+        .language a:hover {
+          color: var(--font-color-white);
+          background-color: var(--background-color-black);
+        }
+        /*-----------language-------------*/
+        
         /*-----------navbar-------------*/
         .navbar {
           position: -webkit-sticky;
@@ -274,15 +300,22 @@
 </head>
 	<link rel="shortcut icon" type="image/x-icon" href="SVG/YINGlogo.ico">
 <body>
+    <div class= "language">
+        <a href="./indexCN.html">中文</a>
+        <a href="./indexESP.html">Español</a>
+        <a href="./indexAR.html">عربي</a>
+    </div>
+    
     <div class="navbar">
 		<a href="./friends.html">Friends</a>
         <a href="#portfolio">Projects</a>
 		<a href="./friends.html">Contact</a>
 		<a href="./index.html">Home</a>
+
     </div>
 
     <div class="header">
-		<h1>Kevin Ying <br /> Designer + Engineer</h1>
+		<h1>Kevin Ying <br /> Design + Engineer</h1>
 		
         <p>B.S. &ensp; EECS &ensp; UC Berkeley 2027</p> 
     </div>
@@ -335,6 +368,8 @@
         <p>
         I am interested in Cyber-Physical systems and Cybernetics.
         </p>
+        
+        <img class="bird" src="Photos/flowers/0706.gif" alt="Description of Image" style="mix-blend-mode: difference; width: clamp(80px, 100px, 10vw); height: auto; filter: contrast(2);"/>
     </div>
 	
 
@@ -345,12 +380,10 @@
 		</div>
 		
 		<div class="bottom">
-		<p class="copyright" style=""> ©Kevin Ying </p>
+		<p class="copyright" style=""> © </p>
         <h1 style="font-size: 19.6vw; line-height: 0; margin-top: 14vw; margin-bottom: 11vw">Kevin Ying </h1>
 <!--        <h1 style="font-size: 34vw; line-height: 0; margin-top: 14vw; margin-bottom: 15vw">Footer </h1>-->
 		</div>
-		
-
 		
 <!--        <img src="Photos/flowers/bottomScreen.png" alt="Description of Image" />-->
     </div>

@@ -1,0 +1,391 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="white" />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="black" />
+<title>يينغ وو جاي</title>
+    <style>
+        /*-----------global themes-------------*/
+        :root {
+          --background-color-white: rgb(245, 245, 247);
+          --background-color-black: #1E1E1E;
+          --font-color-white: rgb(245, 245, 247);
+          --font-color-black: #1E1E1E;
+        }
+        @media (prefers-color-scheme: dark) {
+          :root {
+            --background-color-white: #1E1E1E;
+            --background-color-black: rgb(245, 245, 247);
+            --font-color-white: #1E1E1E;
+            --font-color-black: rgb(245, 245, 247);
+          }
+        }
+        /*-----------global themes-------------*/
+        
+        body {
+          /*cursor: url("./SVG/pointer.svg"), auto;*/
+          background-color: var(--background-color-white);
+          color: var(--font-color-black);
+          font-size: 20px;
+          text-align: center;
+          font: "Untitled Serif Regular";
+		  margin: 0;
+		  text-align: justify;
+			
+		  scrollbar-width: thin; /* "auto" or "thin" */
+          scrollbar-color: #888 var(--background-color-white); /* thumb and track color */
+        }
+		
+		/* WebKit browsers */
+		::-webkit-scrollbar {
+			width: 12px; /* Width of the scrollbar */
+		}
+
+		::-webkit-scrollbar-track {
+			background: var(--background-color-white); /* Color of the scrollbar track */
+		}
+
+		::-webkit-scrollbar-thumb {
+			opacity: 0.3; /* Opacity value should be between 0 and 1 */
+			background-color: var(--background-color-black); /* Color of the scrollbar thumb */
+			border-radius: 6px; /* Roundness of the scrollbar thumb */
+			border: 4px solid var(--background-color-white); /* Creates space around the thumb */
+			transition: all 0.5 ease; /* Duration and easing function for the transition */
+		}
+
+		::-webkit-scrollbar-thumb:hover {
+			opacity: 0.5; /* Increase opacity on hover */
+		}
+		
+        .header {
+		  margin: 0;
+          text-align: left;
+		  padding: 0 5vw 4vh;
+          margin-bottom: 30vh;
+        }
+
+        /*-----------fonts-------------*/
+        h1 {
+          font-size: clamp(70px, 10vw, 120px);
+          font: "Untitled Serif Bold";
+		  overflow-wrap: break-word;
+        }
+        h2 {
+          font-size: clamp(20px, 5vw, 40px);
+          padding-bottom: 10px;
+          padding-top: 0px;
+          text-align: left;
+          font: "Untitled Serif Bold";
+        }
+		h3 {
+		  font-size: clamp(22px, 4vw, 26px);
+	      padding-bottom: 0px;
+          padding-top: 20px;
+          font: "Untitled Serif Bold";
+		}
+		p {
+		  font-size: clamp(18px, 2vw, 20px);
+		  color: var(--font-color-black);
+		}
+        /*-----------fonts-------------*/
+
+		/*------------------intro------------------*/
+		
+		.introContainer {
+		  margin-right: auto;
+          margin-left: auto;
+			
+	      width: 350px;
+          padding-top: 30vh;
+		  padding-bottom: 40vh;
+          /*background-color: var(--background-color-white);*/
+          box-sizing: border-box;
+		}
+		/*------------------intro------------------*/
+		
+        /*-----------language-------------*/
+        .language {
+          padding: 5px;
+          background-color: var(--background-color-white);
+          display: flex;
+          flex-wrap: wrap;
+          justify-content:right; /*space-evenly*/
+          line-height: 12px;
+          border-bottom: 1px solid var(--font-color-black);
+          z-index: 1000; /* Ensures the navbar stays on top */
+        }
+		
+        .language a {
+          display: block;
+          color: var(--font-color-black);
+          text-align: center;
+          padding: 15px 15px; /* Adjusted vertical padding to 20px */
+          text-decoration: none;
+          transition: background-color 0.5s ease;
+          /*border-radius: 5px;*/
+        }
+        .language a:hover {
+          color: var(--font-color-white);
+          background-color: var(--background-color-black);
+        }
+        /*-----------language-------------*/
+        
+        /*-----------navbar-------------*/
+        .navbar {
+          position: -webkit-sticky;
+          position: sticky;
+          top: 0;
+
+          /*font-size: 25px;*/
+          font: "Untitled Serif Regular";
+
+          padding: 5px;
+          background-color: var(--background-color-white);
+          display: flex;
+          flex-wrap: wrap;
+          justify-content:space-evenly; /*space-evenly*/
+          line-height: 12px;
+          border-bottom: 1px solid var(--font-color-black);
+          z-index: 1000; /* Ensures the navbar stays on top */
+        }
+		
+        .navbar a {
+          display: block;
+          color: var(--font-color-black);
+          text-align: center;
+          padding: 15px 15px; /* Adjusted vertical padding to 20px */
+          text-decoration: none;
+          transition: background-color 0.5s ease;
+          /*border-radius: 5px;*/
+        }
+        .navbar a:hover {
+          color: var(--font-color-white);
+          background-color: var(--background-color-black);
+        }
+        /*-----------navbar-------------*/
+
+        .container {
+          width: 100%;
+          margin: 60px auto 0; /* Adjusted top margin to bring content closer to the navbar */
+          padding-top: 20px;
+          /*background-color: var(--background-color-white);*/
+          box-sizing: border-box;
+          text-align: center;
+        }
+
+
+        /*--------------------portfolio panels--------------------*/
+		.galleryStrip {
+			width: 100%;
+			box-sizing: border-box;
+			background-color: var(--background-color-white);
+            border-bottom: 1px solid var(--font-color-black);
+            border-top: 1px solid var(--font-color-black);
+		}
+		
+		.portfolioWrapper {
+			width: 94%;
+			padding-right: 5px;
+			display: flex; 
+			overflow: hidden;
+			overflow-x: auto;
+			margin-left: 5%;
+			margin-right: 0;
+			justify-content: space-between;
+			
+		}
+		
+		.portfolioWrapper::-webkit-scrollbar{
+			display: none;
+		}
+		
+		.portfolioWrapper a {
+			min-width: 400px;
+			height: 490px;
+			
+			padding-bottom: 10px;
+			white-space: nowrap;
+			overflow: hidden;
+			display: inline-block;
+			margin: 5px 25px 5px 5px;
+			background-size: auto 78%;
+			background-position: center 0%;
+			transition: all 0.2s ease-out;
+			transform: scale(1);
+			background-color: rgba(0,0,0,0.10);
+		}
+
+		.portfolioWrapper a:hover {
+			transform: scale(1.02);
+			opacity: 1;
+		}
+		
+		.galleryText {
+			position: absolute;
+			bottom: 0px;
+			left: 0;
+			padding: 5px 1px;
+			width: 100%;
+			box-sizing: border-box;
+			background-color: var(--background-color-white);
+		}
+		
+		.galleryText h3 {
+			margin: 0;
+			line-height: 0;
+			color: var(--font-color-black);
+			box-sizing: border-box;
+			text-align: left;
+		}
+		
+		.galleryText p {
+			box-sizing: border-box;
+			text-align: left;
+			opacity: 60%;
+		}
+		.galleryStrip h2 {
+			padding-left: 5vw;
+		}
+        /*--------------------portfolio panels--------------------*/
+		
+		/*------------------footer------------------*/
+		.footerContainer {
+          /*background-color: var(--background-color-white);*/
+          box-sizing: border-box;
+		  background-size:cover;
+		  overflow: hidden;
+		  position: relative;
+		  align-content: center;
+		}
+		
+		.copyright {
+			text-align: right;
+			padding-right: 5%;
+			padding-bottom: 0px;
+			margin-bottom: 2px;
+		}
+		
+		.footerContainer .navbar {
+			border-bottom: 1px solid var(--font-color-black);
+			background-color: transparent;
+		}
+		
+		.footerContainer img {
+          width: 90%;
+          height: auto;
+          opacity: 0.86;
+		  mix-blend-mode: difference;
+		  padding-left: 5%;
+		  padding-bottom: 2%
+        }
+		
+		.bottom {
+			width: 100%;
+			box-sizing: border-box;
+			display: inline-block;
+/*			background-color: black;*/
+			text-align: left;
+			margin: 1%;
+		}
+		/*------------------footer------------------*/
+    </style>
+	
+	
+
+
+    
+</head>
+	<link rel="shortcut icon" type="image/x-icon" href="SVG/YINGlogo.ico">
+<body>
+    <div class= "language">
+        <a href="./indexCN.html">中文</a>
+        <a href="./indexESP.html">Español</a>
+        <a href="./index.html">English</a>
+    </div>
+    
+    <div class="navbar">
+		<a href="./friends.html">أصدقاء</a>
+        <a href="#portfolio">مشاريع</a>
+		<a href="./friends.html">تواصل</a>
+		<a href="./index.html">الصفحة الرئيسية</a>
+
+    </div>
+
+    <div class="header">
+		<h1>يينغ وو جاي <br /> تصميم + هندسة</h1>
+		
+        <p>B.S. &ensp; EECS &ensp; جامعة كاليفورنيا في بيركلي 2027</p> 
+    </div>
+	
+	<div class="galleryStrip">
+		<h2>مشاريع</h2>
+		<div class="portfolioWrapper">
+			<a target="_top" class="item" href="./Telemetry Box.html" style="background-image: url(Photos/onOff.gif)">
+				<span class="album-details">
+					<!-- <span class="icon"><i class="far fa-at"></i> </span> -->
+					<span class="galleryText">
+						<h3>التلميتري</h3>
+						<p>2023 <br /> بناة الدراجات في بيركلي</p>
+					</span>
+				</span>
+			</a>
+			<a target="_top" href="./friends.html" style="background-image: url(Photos/Website.png)">
+				<span class="album-details">
+					<span class="galleryText">
+						<h3>موقع النادي</h3>
+						<p>2024 <br /> بناة الدراجات في بيركلي</p>
+					</span>
+				</span>
+			</a>
+			<a target="_top" href="./friends.html">
+				<span class="album-details">
+					<span class="galleryText">
+						<h3>نادي</h3>
+						<p>2024 <br /> بناة الدراجات في بيركلي</p>
+					</span>
+				</span>
+			</a>
+			<a href="./friends.html" style="background-image: url(https://assets.codepen.io/2585/pothos.jpeg)">
+				<span class="album-details">
+					<span class="galleryText">
+						<h3>Leaf</h3>
+						<p>2022 <br /> Leaf</p>
+					</span>
+				</span>
+			</a>
+		</div>
+	</div>
+	
+
+    <div class="introContainer">
+        <h2>مرحبًا!</h2>
+        <p>
+        أنا طالب هندسة في السنة الثانية في بيركلي. <br /> أنا صيني-أسترالي، هاجرت إلى ملبورن، أستراليا في عام 2015. <br /> في وقت فراغي، أحب الاستماع إلى الموسيقى، والتفكير في الأمور، وقضاء الوقت مع الأصدقاء.
+		</p>
+        <p>
+        أنا مهتم بالأنظمة السيبرفيزيائية والسيبرنيتيك.
+        </p>
+        
+        <img class="bird" src="Photos/flowers/0706.gif" alt="Description of Image" style="mix-blend-mode: difference; width: clamp(80px, 100px, 10vw); height: auto; filter: contrast(2);"/>
+    </div>
+	
+
+    <div class="footerContainer">
+		<div class="navbar">
+			<a href="./friends.html">إنستغرام</a>
+			<a href="https://www.linkedin.com/in/yingk888">لينكدإن</a>
+		</div>
+		
+		<div class="bottom">
+		<p class="copyright" style=""> © </p>
+        <h1 style="font-size: 18vw; line-height: 0; margin-top: 14vw; margin-bottom: 15vw">يينغ وو جاي</h1>
+<!--        <h1 style="font-size: 34vw; line-height: 0; margin-top: 14vw; margin-bottom: 15vw">Footer </h1>-->
+		</div>
+		
+<!--        <img src="Photos/flowers/bottomScreen.png" alt="Description of Image" />-->
+    </div>
+</body>
+</html>
