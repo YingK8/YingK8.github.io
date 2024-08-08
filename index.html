@@ -26,6 +26,7 @@
           }
         }
         /*-----------global themes-------------*/
+
         @keyframes fadeInAnimation {
             0% {
                 opacity: 0;
@@ -34,22 +35,34 @@
                 opacity: 1;
             }
         }
-        
+
+        @keyframes fadeOutAnimation {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
         body {    
-          animation: fadeInAnimation ease 1.6s;
+          animation: fadeInAnimation ease 1.5s;
           animation-iteration-count: 1;
           animation-fill-mode: forwards;
-          /*cursor: url("./SVG/pointer.svg"), auto;*/
           background-color: var(--background-color-white);
           color: var(--font-color-black);
           font-size: 20px;
           text-align: center;
           font: "Untitled Serif Regular";
-		  margin: 0;
-		  text-align: justify;
-			
-		  scrollbar-width: thin; /* "auto" or "thin" */
-          scrollbar-color: #888 var(--background-color-white); /* thumb and track color */
+          margin: 0;
+          text-align: justify;
+          scrollbar-width: thin;
+          scrollbar-color: #888 var(--background-color-white);
+        }
+
+        .fade-out {
+            animation: fadeOutAnimation ease 0.4s;
+            animation-fill-mode: forwards;
         }
 		
 		/* WebKit browsers */
@@ -148,15 +161,12 @@
           padding: 15px 15px; /* Adjusted vertical padding to 20px */
           text-decoration: none;
           opacity: 1;
-          transition: opacity 1.5s ease, background-color 0.8s ease;
+          transition: background-color 0.8s ease;
           /*border-radius: 5px;*/
         }
         .navbar a:hover {
           color: var(--font-color-white);
           background-color: var(--background-color-black);
-        }
-        .navbar a:active {
-          opacity: 0;
         }
         /*-----------navbar-------------*/
 
@@ -172,7 +182,10 @@
 
         /*--------------------portfolio panels--------------------*/
 		.galleryStrip {
-			width: 100%;
+            margin-right: auto;
+            margin-left: auto;
+            padding-bottom: 0;
+            width: 80vw;
 			box-sizing: border-box;
 			background-color: var(--background-color-white);
 /*
@@ -182,14 +195,11 @@
 		}
 		
 		.portfolioWrapper {
-            padding-top: 100px;
-			width: 80%;
+			width: 100%;
             padding-left: 0;
 			display: flex; 
 			overflow: hidden;
 			overflow-x: auto;
-			margin-left: auto;
-			margin-right: auto;
 			justify-content: space-between;
 			
 		}
@@ -294,14 +304,15 @@
         <img style="width: 20%; border-radius: 0%;" src="Photos/flowers/IMG_6768.PNG" alt="Me!"> 
     </div>
     <div class="introContainer">
-        
         <h2>Hello!</h2>
         <p>I am a second year Berkeley engineering student. I am Chinese-Australian, immigrated to Melbourne in 2015. I like to listen to music, think about things, and hang out with friends.</p>
         <p>I am interested in Cyber-Physical systems and Cybernetics.</p>
         <p>B.S. &ensp; EECS &ensp; UC Berkeley 2027</p> 
     </div>
-
+    
+    
 	<div class="galleryStrip">
+        <h1>Projects:</h1>
 		<div class="portfolioWrapper">
             <a target="_top" href="./friends.html" style="background-image: url('Photos/Telemetry VO/IMG_6744.heic')">
 				<span class="album-details">
@@ -349,6 +360,24 @@
             <h1 style="line-height: 0; margin-top: 1vh; margin-bottom: 5vh">Footer. </h1>
 		</div>
     </div>
+    
+<!--    fade out effect-->
+    <script>
+        document.querySelectorAll('a').forEach(anchor => {
+            anchor.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent the default link click behavior
+                
+                const href = this.href; // Store the link target
+                
+                document.body.classList.add('fade-out'); // Add the fade-out class
+                
+                setTimeout(() => {
+                    window.location.href = href; // Navigate to the link after the fade-out animation
+                }, 500); // Wait for the animation to finish (adjust timing to match the animation duration)
+            });
+        });
+    </script>
+<!--    fade out effect-->
     
 </body>
 </html>
