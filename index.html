@@ -101,7 +101,7 @@
           font-size: clamp(70px, 10vw, 120px);
           font: "Untitled Serif Bold";
 		  overflow-wrap: break-word;
-          padding-bottom: 2vh
+          padding-bottom: 2vh;
         }
         h2 {
           font-size: clamp(20px, 5vw, 40px);
@@ -315,7 +315,7 @@
 	<div class="galleryStrip">
         <h1>Projects:</h1>
 		<div class="portfolioWrapper">
-            <a target="_top" href="./friends.html" style="background-image: url('Photos/Telemetry VO/IMG_6744.heic')">
+            <a target="_top" href="./index.html" style="background-image: url('Photos/Telemetry VO/IMG_6744.heic')">
 				<span class="album-details">
 					<span class="galleryText">
 						<h3>Telemetry VO</h3>
@@ -323,7 +323,7 @@
 					</span>
 				</span>
 			</a>
-            <a target="_top" href="./friends.html" style="background-image: url('Photos/BBB website/Website.png')">
+            <a target="_top" href="./index.html" style="background-image: url('Photos/BBB website/Website.png')">
 				<span class="album-details">
 					<span class="galleryText">
 						<h3>Club Website</h3>
@@ -331,7 +331,7 @@
 					</span>
 				</span>
 			</a>
-			<a target="_top" class="item" href="./Telemetry Box.html" style="background-image: url('Photos/Telemetry V1/telemetry-21.jpeg')">
+			<a target="_top" class="item" href="./index.html" style="background-image: url('Photos/Telemetry V1/telemetry-21.jpeg')">
 				<span class="album-details">
 					<!-- <span class="icon"><i class="far fa-at"></i> </span> -->
 					<span class="galleryText">
@@ -340,11 +340,12 @@
 					</span>
 				</span>
 			</a>
-			<a href="./friends.html" style="background-image: url(https://assets.codepen.io/2585/pothos.jpeg)">
+            <a target="_top" class="item" href="./index.html" style="background-image: url('miniBerkeleyImages/IMG_6774 2.jpeg')">
 				<span class="album-details">
+					<!-- <span class="icon"><i class="far fa-at"></i> </span> -->
 					<span class="galleryText">
-						<h3>Leaf</h3>
-						<p>2022 <br /> Leaf</p>
+						<h3>mini Berkeley</h3>
+						<p>2024 <br /> Personal Project</p>
 					</span>
 				</span>
 			</a>
@@ -353,7 +354,7 @@
     
     <div class="footerContainer">
 		<div class="navbar">
-			<a href="./friends.html">Instagram</a>
+			<a href="https://www.instagram.com/sir_passionfruit/">Instagram</a>
 			<a href="https://www.linkedin.com/in/yingk888">LinkedIn</a>
 		</div>
 		
@@ -376,6 +377,19 @@
                     window.location.href = href; // Navigate to the link after the fade-out animation
                 }, 500); // Wait for the animation to finish (adjust timing to match the animation duration)
             });
+        });
+        
+        // Listen for the popstate event, which is fired when the active history entry changes
+        window.addEventListener('popstate', function(event) {
+            document.body.classList.add('fade-out'); // Apply the fade-out effect
+        });
+
+        // Trigger the fade-in animation when the page is loaded via history navigation
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) { // Checks if the page is loaded from the cache
+                document.body.classList.remove('fade-out'); // Remove the fade-out effect
+                document.body.style.opacity = 1; // Ensure the opacity is set to 1
+            }
         });
     </script>
 <!--    fade out effect-->
