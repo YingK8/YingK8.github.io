@@ -45,6 +45,13 @@
             }
         }
 
+        @font-face {
+          font-family: 'MyWebFont';
+          src: url('./Fonts/Andale\ Mono.ttf'); /* IE9 Compat Modes */
+          /* src:url('./Fonts/Andale\ Mono.ttf') format('woff'), /* Modern Browsers */
+              /* url('./Fonts/Andale\ Mono.ttf')  format('truetype'), Safari, Android, iOS */ */
+        }
+
         body {    
           animation: fadeInAnimation ease 1.5s;
           animation-iteration-count: 1;
@@ -53,7 +60,7 @@
           color: var(--font-color-black);
           font-size: 20px;
           text-align: center;
-          font: "Untitled Serif Regular";
+          font-family: 'MyWebFont';
           margin: 0;
           text-align: justify;
           scrollbar-width: thin;
@@ -119,7 +126,7 @@
 		  font-size: clamp(18px, 2vw, 20px);
 		  color: var(--font-color-black);
 		}
-        /*-----------fonts-------------*/
+      /*-----------fonts-------------*/
 
 		/*------------------intro------------------*/
 		
@@ -182,7 +189,6 @@
 
         /*--------------------portfolio panels--------------------*/
 		.galleryStrip {
-            margin-right: auto;
             margin-left: auto;
             padding-bottom: 0;
             width: 80vw;
@@ -306,7 +312,7 @@
     </div>
     <div class="introContainer">
         <h2>Hello!</h2>
-        <p>I am a second year Berkeley engineering student. I am Chinese-Australian, immigrated to Melbourne in 2015. I like to listen to music, think about things, and hang out with friends.</p>
+        <p>I am a second year engineering student. I am Chinese-Australian, immigrated to Melbourne in 2015. I like to listen to music, think about things, and hang out with friends.</p>
         <p>I am interested in Cyber-Physical Systems and Robotics.</p>
         <p>B.S. &ensp; EECS &ensp; UC Berkeley 2027</p> 
     </div>
