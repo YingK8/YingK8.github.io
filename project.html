@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Journal</title>
+    
+    <style>
+        /* ====== Base Styles ====== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding-top: 60px; /* Space for fixed navbar */
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            text-align: left;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        p {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer {
+            position: relative; /* or sticky */
+            margin-top: 3rem;
+            padding: 0;
+            bottom: 0px;
+        }
+
+        /* ====== Navigation ====== */
+        .navbar {
+            background-color: #f5f5f5;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+            border-bottom: 1px solid #000;
+        }
+        
+        .navbar a {
+            color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 15px 0;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar a:not(:last-child) {
+            border-right: 1px solid #000;
+        }
+        
+        .navbar a:hover {
+            background-color: #ddd;
+        }
+
+
+        /* ====== Journal Container ====== */
+        .journal-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        /* ====== Journal Entry Styles ====== */
+        .journal-entry {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #000;
+            background-color: none;
+            position: relative;
+            margin-bottom: 1rem; /* Added spacing between entries */
+        }
+
+        .journal-intro {
+            display: flex;
+            flex-direction: column;
+            border: none;
+            background-color: none;
+            position: relative;
+            margin-bottom: 1rem; /* Added spacing between entries */
+        }
+
+        /* ====== Collapsible Code Block ====== */
+        .code-block-container {
+            position: relative;
+            margin: 0;
+            background: #252525;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Summary/Header Styles */
+        .code-block-container summary {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0.5rem;
+            color: #f5f5f5;
+            background-color: #000;
+            cursor: pointer;
+            list-style: none;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Custom Arrow Icon */
+        .code-block-container summary::before {
+            content: '';
+            width: 18px;
+            height: 18px;
+            background-image: url("./icons/collapse-arrow.svg");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-right: 0.6rem;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Hover Effects */
+        .code-block-container summary:hover {
+            background-color: #313131;
+        }
+
+        .code-block-container summary:hover::before {
+            transform: rotate(90deg);
+        }
+
+        /* Open State Styles */
+        .code-block-container[open] summary {
+            background-color: #171717;
+        }
+
+        .code-block-container[open] summary::before {
+            transform: rotate(90deg);
+        }
+
+        /* Content Area */
+        .code-block-container .code-block {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            background-color: #1e1e1e;
+        }
+
+        .code-block-container[open] .code-block {
+            max-height:fit-content;
+            padding: 1rem;
+        }
+
+        /* Hide default marker */
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        /* Code Block Styling */
+        .code-block {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            line-height: 1.6;
+            color: #f0f0f0;
+            overflow-x: auto;
+            tab-size: 4;
+            white-space: pre-wrap;
+            word-break: break-word;
+            margin: 0;
+        }
+
+        /* ====== Entry Content Sections ====== */
+        .entry-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 10% 13% 10%;
+            border-top: none;
+            position: relative;
+        }
+
+        .intro-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 3% 5% 2% 0rem; /* Left padding set to 1rem */
+            border-bottom: none;
+            position: relative;
+        }
+
+        .entry-content-full {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 13% 13% 10%;
+            border-top: none;
+            position: relative;
+        }
+
+        
+        .entry-image {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            background-color: none;
+        }
+        
+        .entry-image img {
+            width: 80%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .intro-image {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0rem;
+            background-color: none;
+        }
+
+        .intro-image img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .entry-image-full img {
+            height: 100%;
+            padding: 1rem 1rem 1.8rem;
+            padding-top: 2.3rem;
+        }
+
+
+        /* ====== Entry Metadata ====== */
+        .entry-date {
+            position: absolute;
+            bottom: 0.5rem;
+            left: 0.5rem;
+            color: #000;
+        }
+
+        .entry-title {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            color: #000;
+        }
+
+
+        /* ====== Desktop Layout ====== */
+        @media (min-width: 768px) {
+            .journal-entry {
+                flex-direction: row;
+                min-height: 50vh;
+            }
+
+            .journal-intro {
+                flex-direction: row;
+                min-height: 50vh;
+            }
+
+            .entry-content {
+                width: 50%;
+                border-left: none;
+                border-top: none;
+                padding: 5%;
+            }
+
+            .intro-content {
+                width: 50%;
+                padding: 5% 5% 5% 0rem; /* Left padding set to 1rem */
+                margin-right: 0;
+            }
+
+            .intro-image {
+                width: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 1rem;
+                padding-right: 0;
+                padding-bottom: 0;
+            }
+
+            .intro-image img {
+                width: 100%;
+                height: auto;
+                object-fit: contain;
+            }
+
+            .entry-image {
+                width: 50%;
+                padding: 0.5rem;
+            }
+            
+            .entry-image img {
+                max-height: 100%;
+                max-width: 100%;
+                width: auto;
+                height: auto;
+            }
+
+            .entry-image-full {
+                width: 100%;
+                padding: 2.4rem 2.4rem 1.2rem;
+                padding-top: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- project introduction -->
+    <div class="journal-container">
+        <div class="journal-intro">
+            <div class="intro-content">
+                <h1>Project 1</h1>
+                <p>Today we initiated the new project with the client meeting. Established core requirements and success metrics. The team is excited to begin prototyping next week after we complete the initial research phase.</p>
+                <p>Key challenges identified include integration with legacy systems and meeting the tight deadline for the first prototype.</p>
+            </div>
+
+            <div class="intro-image">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c" alt="Team meeting">
+            </div>
+        </div>
+
+    <!-- Journal Entries -->
+    <div class="journal-container">
+        <!-- Entry with image and text -->
+        <div class="journal-entry">
+            <div class="entry-image">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c" alt="Team meeting">
+            </div>
+            <div class="entry-content">
+                <div class="entry-title">Project Kickoff</div>
+                <p>Today we initiated the new project with the client meeting. Established core requirements and success metrics. The team is excited to begin prototyping next week after we complete the initial research phase.</p>
+                <p>Key challenges identified include integration with legacy systems and meeting the tight deadline for the first prototype.</p>
+                <div class="entry-date">May 15, 2023</div>
+            </div>
+        </div>
+        
+        <!-- Image-only entry -->
+        <div class="journal-entry">
+            <div class="entry-image-full">
+                <div class="entry-title">Project Kickoff</div>
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c" alt="Team meeting">
+                <div class="entry-date">May 15, 2023</div>
+            </div>
+        </div>
+
+        <!-- Text-only entry -->
+        <div class="journal-entry">
+            <div class="entry-content-full">
+                <div class="entry-title">Project Kickoff</div>
+                <p>Today we initiated the new project with the client meeting. Established core requirements and success metrics. The team is excited to begin prototyping next week after we complete the initial research phase.</p>
+                <p>Key challenges identified include integration with legacy systems and meeting the tight deadline for the first prototype.</p>
+                <div class="entry-date">May 15, 2023</div>
+            </div>
+        </div>
+
+        <!-- code entry -->
+        <details class="code-block-container">
+            <summary>Code</summary>
+            <div class="code-block">
+                <code>
+def hello_world():
+    print("Hello, world!")
+                </code>
+            </div>
+        </details>
+    </div>
+</body>
+<h1 class="footer">Footer</h1>
+</html>

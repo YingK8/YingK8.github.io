@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevin Ying - Portfolio</title>
+    <style>
+
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        
+        body { 
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding-top: 60px; /* Space for fixed navbar */
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: left;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        p {
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Main content layout */
+        .footer {
+            position: relative; /* or sticky */
+            margin-top: 3rem;
+            padding: 0;
+            bottom: 0px;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            /* max-width: 100vw; */
+            overflow-x: hidden;
+        }
+
+        @media (min-width: 500px) {
+            .main-container {
+                flex-direction: row;
+                height: calc(100vh);
+            }
+            .bio-section {
+                flex: 0 0 30%;
+                padding: 1rem;
+                overflow-y: auto;
+                height: 100%;
+                min-width: 300px;
+            }
+        }
+
+        /* Navbar styles */
+        .navbar {
+            background-color: #f5f5f5;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            left: 50%;
+            transform: translateX(-50%); /* Perfect centering */
+            z-index: 5;
+            border-bottom: 1px solid #000;
+        }
+        
+        .navbar a {
+            color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 15px 0;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar a:not(:last-child) {
+            border-right: 1px solid #000;
+        }
+        
+        .navbar a:hover {
+            background-color: #ddd;
+        }
+
+        /* Bio section styles */
+        .bio-section {
+            padding: 1rem;
+        }
+
+        .profile-img-container {
+            text-align: left;
+            margin: 0 auto 1rem;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            /* border: 2px solid #333; */
+        }
+
+        /* contact buttons */
+        .contact-buttons {
+            display: flex;
+            flex-direction: column; /* horizontal by default (narrow screens) */
+            gap: 0.5rem;
+            margin: 0.5em;
+            max-width: 270px;
+        }
+
+        @media (min-width: 500px) {
+            .contact-buttons {
+                flex-direction: column; /* vertical on wide screens */
+                width: 100%;
+                margin-top: 1.8rem;
+            }
+        }
+
+
+        .contact-buttons a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-align: left;
+            text-decoration: none;
+            padding: 0.5rem;
+            padding-right: 5%;
+            background-color: transparent;
+            border: 1px solid #000;
+            color: black;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-buttons a::before {
+            content: "";
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background-image: url("./icons/send-arrow-black.svg");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .contact-buttons a:hover {
+            background-color: #ddd;
+        }
+
+        .contact-buttons a:hover::before {
+            transform: rotate(45deg);
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+      <a href="./index.html">Work</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="main-container">
+        <section class="bio-section">
+            <h1>About</h1>
+            <div class="profile-img-container">
+                <img class="profile-img" src="Photos/flowers/IMG_6768.PNG" alt="Profile Photo"> 
+            </div>
+            <h2>Kevin Ying</h2>
+            <p>I am a 3rd year undergraduate student pursuing Electrical Engineering at Berkeley, on Muwekma Ohlone Land. I am Chinese-Australian; I like to listen to music, think about things, and hang out with friends.</p>
+            <p>I am interested in IOT and Robotics.</p>
+            <p>B.S. &ensp; EECS &ensp; UC Berkeley 2027</p> 
+        </section>
+
+        <div class="contact-buttons">
+            <a href="https://www.linkedin.com/in/yingk888/" target="_blank">LinkedIn</a>
+            <a href="mailto:yingk@berkeley.edu">Email</a>
+            <a href="tel:+15109773373">Phone</a>
+        </div>
+    </div>
+</body>
+<h1 class="footer">Footer</h1>
+</html>
