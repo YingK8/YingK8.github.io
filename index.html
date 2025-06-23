@@ -164,8 +164,10 @@
         .card-img-graphic {
             width: 80%; /* Adjust this percentage to control image size */
             height: 60%; /* Maintain aspect ratio */
-            left: 10%;
-            top: 20%;
+            position: absolute; /* Required for centering with transform */
+            left: 50%; /* Start at 50% from left */
+            top: 50%; /* Start at 50% from top */
+            transform: translate(-50%, -50%); /* Shift back by half of element's dimensions */
             object-fit: contain; /* Show entire image without cropping */
             /* border-radius: 10px; */
             /* box-shadow: 0 4px 15px rgb(206, 206, 206); */
