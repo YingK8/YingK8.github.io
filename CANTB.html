@@ -3,10 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CANTB</title>
-    
+    <title>Kevin Ying - CAN Testbench</title>
     <style>
-        /* ====== Base Styles ====== */
+        /* --- CSS Variables --- */
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333;
+            --accent-color: none;
+            --grid-max-width: 1200px;
+            --nav-height: 60px;
+            --gap-size: 1rem;
+            --card-color: #f5f5f5
+        }
+
+        /* --- Reset & Base --- */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -14,121 +24,210 @@
         }
         
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background-color: #f5f5f5;
-            padding-top: 60px; /* Space for fixed navbar */
-            max-width: 1200px;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding-top: var(--nav-height);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding-bottom: 2rem;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        h1, h2, h3 { color: #2c3e50; margin-bottom: 1rem; }
+        p { margin-bottom: 0.8rem; font-size: 0.95rem; }
+
+        /* --- The Modular Grid System --- */
+        .grid-container {
+            width: 100%;
+            max-width: var(--grid-max-width);
             margin: 0 auto;
-        }
-
-        h2 {
-            margin-bottom: 1rem;
-        }
-
-        h1 {
-            text-align: left;
-            color: #2c3e50;
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-        }
-
-        p {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer {
-            position: relative; /* or sticky */
-            margin-top: 3rem;
-            padding: 0;
-            bottom: 0px;
-        }
-
-        /* ====== Navigation ====== */
-        .navbar {
-            background-color: #f5f5f5;
+            padding: 0 1.5rem;
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--gap-size);
+            background-color: var(--card-color);
+        }
+
+        /* --- Navbar --- */
+        .navbar-wrapper {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 5;
-            border-bottom: 1px solid #000;
+            height: var(--nav-height);
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--accent-color);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar-inner {
+            width: 100%;
+            max-width: var(--grid-max-width);
+            padding: 0 1.5rem;
+            height: 100%;
+        }
+
+        .nav-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 100%;
+            width: 100%;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            height: 100%;
+            width: 100%;
+            transition: background-color 0.2s ease;
         }
         
-        .navbar a {
-            color: rgb(0, 0, 0);
-            text-align: center;
-            padding: 15px 0;
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .nav-link:first-child { 
+            border-right: 1px solid var(--accent-color); 
         }
 
-        .navbar a:not(:last-child) {
-            border-right: 1px solid #000;
+        .nav-link:hover { background-color: #e0e0e0; }
+
+        /* --- Main Content Layout --- */
+        main {
+            padding-top: 2rem;
+            flex: 1;
+        }
+
+        /* --- Intro Section --- */
+        .intro-section {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .intro-text {
+            grid-column: 1 / 7;
+            padding-right: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .intro-image {
+            grid-column: 7 / -1;
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            object-fit: cover; /* or contain, depending on image aspect ratio */
+            border: 1px solid var(--accent-color);
+        }
+
+        /* --- Journal Entries --- */
+        .journal-row {
+            grid-column: 1 / -1; 
+            border: 1px solid var(--accent-color);
+            background: #fff;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            margin-bottom: 1rem; 
+            overflow: hidden; 
+        }
+
+        /* Standard Split Entry (Image Left, Text Right) */
+        .entry-half {
+            grid-column: span 6;
+            position: relative;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .entry-half.with-border-right {
+            border-right: 1px solid var(--accent-color);
+        }
+
+        /* Full Width Entry */
+        .entry-full {
+            grid-column: 1 / -1;
+            position: relative;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Metadata (Date/Title) */
+        .meta-title {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .meta-date {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            font-size: 0.85rem;
+            color: #666;
+            font-family: monospace;
+        }
+
+        /* Images inside entries */
+        .entry-img-contain {
+            max-width: 100%;
+            max-height: 350px;
+            width: auto;
+            object-fit: contain;
         }
         
-        .navbar a:hover {
-            background-color: #ddd;
+        .entry-img-full {
+            width: 100%;
+            height: auto;
+            max-height: 600px;
+            object-fit: contain;
         }
 
-
-        /* ====== Journal Container ====== */
-        .journal-container {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
+        /* --- Collapsible Code Block --- */
+        .code-block-wrapper {
+            grid-column: 1 / -1;
+            margin-bottom: 1rem;
+            border: 1px solid var(--accent-color);
         }
 
-        /* ====== Journal Entry Styles ====== */
-        .journal-entry {
-            display: flex;
-            flex-direction: column;
-            border: 1px solid #000;
-            background-color: none;
-            position: relative;
-            margin-bottom: 1rem; /* Added spacing between entries */
-        }
-
-        .journal-intro {
-            display: flex;
-            flex-direction: column;
-            border: none;
-            background-color: none;
-            position: relative;
-            margin-bottom: 1rem; /* Added spacing between entries */
-        }
-
-        /* ====== Collapsible Code Block ====== */
-        .code-block-container {
-            position: relative;
-            margin: 0;
+        details.code-block-container {
             background: #252525;
-            overflow: hidden;
             transition: all 0.3s ease;
         }
 
-        /* Summary/Header Styles */
-        .code-block-container summary {
+        summary {
             display: flex;
             align-items: center;
-            padding: 0.5rem 0.5rem;
+            padding: 0.5rem;
             color: #f5f5f5;
             background-color: #000;
             cursor: pointer;
             list-style: none;
             font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Custom Arrow Icon */
+        /* Custom Arrow */
         .code-block-container summary::before {
             content: '';
             width: 18px;
             height: 18px;
+            /* Simple SVG Arrow encoded */
             background-image: url("./icons/collapse-arrow.svg");
             background-size: contain;
             background-repeat: no-repeat;
@@ -164,8 +263,8 @@
         }
 
         .code-block-container[open] .code-block {
-            max-height:fit-content;
-            padding: 1rem;
+            max-height: fit-content;
+            padding: 1.5rem;
         }
 
         /* Hide default marker */
@@ -173,11 +272,11 @@
             display: none;
         }
 
-        /* Code Block Styling */
+        /* Code Block Styling - WHITE TEXT OVERRIDE */
         .code-block {
             font-family: 'Fira Code', 'Courier New', monospace;
             line-height: 1.6;
-            color: #f0f0f0;
+            color: #ffffff; /* Pure White Text */
             overflow-x: auto;
             tab-size: 4;
             white-space: pre-wrap;
@@ -185,482 +284,215 @@
             margin: 0;
         }
 
-        /* ====== Entry Content Sections ====== */
-        .entry-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 10% 13% 10%;
-            border-top: none;
-            position: relative;
+        /* Ensure no highlight background on the code tag */
+        .code-block code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
         }
 
-        .intro-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 3% 5% 2% 0rem; /* Left padding set to 1rem */
-            border-bottom: none;
-            position: relative;
+        /* --- Footer --- */
+        footer {
+            margin-top: 4rem;
+            padding: 2rem 0;
         }
+        .footer-content { grid-column: 1 / -1; color: #666; font-size: 0.9rem; text-align: center;}
 
-        .entry-content-full {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 13% 13% 10%;
-            border-top: none;
-            position: relative;
-        }
+        /* --- Responsiveness --- */
+        @media (max-width: 768px) {
+            .intro-text { grid-column: 1 / -1; margin-bottom: 1rem; padding-right: 0;}
+            .intro-image { grid-column: 1 / -1; min-height: 250px; }
 
-        .entry-image {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 1rem;
-            background-color: none;
-        }
-        
-        .entry-image img {
-            width: 80%;
-            height: auto;
-            object-fit: contain;
-            max-height: 400px;
-        }
-
-        .intro-image {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0rem;
-            background-color: none;
-        }
-
-        .intro-image img {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-        }
-
-        .entry-image-full img {
-            width: 100%;
-            padding: 1rem 1rem 1.8rem;
-            padding-top: 2.3rem;
-        }
-
-
-        /* ====== Entry Metadata ====== */
-        .entry-date {
-            position: absolute;
-            bottom: 0.5rem;
-            left: 0.5rem;
-            color: #000;
-        }
-
-        .entry-title {
-            position: absolute;
-            top: 0.5rem;
-            left: 0.5rem;
-            color: #000;
-        }
-
-
-        /* ====== Desktop Layout ====== */
-        @media (min-width: 768px) {
-            .journal-entry {
-                flex-direction: row;
-                min-height: 50vh;
-            }
-
-            .journal-intro {
-                flex-direction: row;
-                min-height: 50vh;
-            }
-
-            .entry-content {
-                width: 50%;
-                border-left: none;
-                border-top: none;
-                padding: 5%;
-            }
-
-            .intro-content {
-                width: 50%;
-                padding: 5% 5% 5% 0rem; /* Left padding set to 1rem */
-                margin-right: 0;
-            }
-
-            .intro-image {
-                width: 50%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding: 1rem;
-                padding-right: 0;
-                padding-bottom: 0;
-            }
-
-            .intro-image img {
-                width: 100%;
-                height: auto;
-                object-fit: contain;
-            }
-
-            .entry-image {
-                width: 50%;
-                padding: 0.5rem;
+            .entry-half {
+                grid-column: 1 / -1; /* Stack vertically on tablet/mobile */
+                border-right: none;
+                border-bottom: 1px solid var(--accent-color);
+                min-height: auto;
+                padding: 4rem 1.5rem 2rem 1.5rem; /* More top padding for title */
             }
             
-            .entry-image img {
-                /* max-height: 100%; */
-                max-width: 100%;
-                width: auto;
-                height: auto;
-            }
-
-            .entry-image-full {
-                width: 100%;
-                padding: 2.4rem 2.4rem 1.2rem;
-                padding-top: 1rem;
-            }
+            .entry-half:last-child { border-bottom: none; }
         }
     </style>
 </head>
-
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <a href="./index.html">Work</a>
-        <a href="./about.html">Contact</a>
+
+    <nav class="navbar-wrapper">
+        <div class="navbar-inner">
+            <div class="nav-links">
+                <a href="./index.html" class="nav-link">Work</a>
+                <a href="./about.html" class="nav-link">Contact</a>
+            </div>
+        </div>
     </nav>
 
-    <!-- project introduction -->
-    <div class="journal-container">
-        <div class="journal-intro">
-            <div class="intro-content">
+    <main class="grid-container">
+
+        <section class="intro-section">
+            <div class="intro-text">
                 <h1>CAN Testbench</h1>
                 <h2>CalSol, Spring 2025</h2>
                 <p>On the CAN TB team, we led the club’s switch to ESP microprocessors and designed the PCB and firmware for CAN bus communication on the ESP32.</p>
             </div>
+            <img src="./Photos/CANTB/group _photo.png" alt="Team meeting" class="intro-image" style="object-fit: contain; background: #fff;">
+        </section>
 
-            <div class="intro-image">
-                <img src="./Photos/CANTB/group _photo.png" alt="Team meeting">
+        <article class="journal-row">
+            <div class="entry-half with-border-right">
+                <div class="meta-title">Layout View</div>
+                <img src="./Photos/CANTB/latestLayout.png" alt="PCB layout" class="entry-img-contain">
             </div>
-        </div>
+            <div class="entry-half">
+                <div class="meta-title">ESP32 Dev Board</div>
+                <p>We helped fix the ESP dev board layout from last semester, and updated it to be printed by JLCPCB.</p>
+                <p>I rearranged components, vias, and added the silkscreen to ensure easier assembly and debugging.</p>
+            </div>
+        </article>
 
-    <!-- Journal Entries -->
-    <div class="journal-container">
-        <!-- Entry with image and text -->
-        <div class="journal-entry">
-            <div class="entry-image">
-                <img src="./Photos/CANTB/latestLayout.png" alt="PCB layout">
+        <article class="journal-row">
+            <div class="entry-half with-border-right">
+                <div class="meta-title">Schematic / Layout</div>
+                <img src="./Photos/CANTB/small_layout.png" alt="PCB layout" class="entry-img-contain">
             </div>
-            <div class="entry-content">
-                <div class="entry-title">ESP32 Dev Board</div>
-                <p>We helped fix the ESP dev board layout from last semester, and updated to be printed by JLCPCB.</p>
-                <p>I rearranged components, vias, and added the silkscreen.</p>
-                <!-- <div class="entry-date">May 15, 2023</div> -->
+            <div class="entry-half">
+                <div class="meta-title">CAN Bus Transceiver</div>
+                <p>To allow other ESP32 dev boards to have CAN bus capabilities, we also designed our own transceiver module.</p>
+                <p>It was based off of the ESP32 Dev Board design but miniaturized for modular use.</p>
             </div>
-        </div>
+        </article>
 
-        <!-- Entry with image and text -->
-        <div class="journal-entry">
-            <div class="entry-image">
-                <img src="./Photos/CANTB/small_layout.png" alt="PCB layout">
+        <article class="journal-row">
+            <div class="entry-full">
+                <div class="meta-title">Fabricated Transceiver</div>
+                <img src="./Photos/CANTB/IMG_8619.png" alt="Transceiver Photo" class="entry-img-full">
             </div>
-            <div class="entry-content">
-                <div class="entry-title">CAN Bus Transceiver</div>
-                <p>To allow other ESP32 dev boards to have CAN bus capabilities, we also designed our own transciever module</p>
-                <p>It was based off of the ESP32 Dev Board</p>
-                <!-- <div class="entry-date">May 15, 2023</div> -->
-            </div>
-        </div>
-        
-        <!-- Image-only entry -->
-        <div class="journal-entry">
-            <div class="entry-image-full">
-                <div class="entry-title">CAN Bus Transceiver</div>
-                <img src="./Photos/CANTB/IMG_8619.png" alt="Team meeting">
-                <!-- <div class="entry-date">May 15, 2023</div> -->
-            </div>
-        </div>
+        </article>
 
-        <!-- Entry with image and text -->
-        <div class="journal-entry">
-            <div class="entry-image">
-                <img src="./Photos/CANTB/prototype.png" alt="PCB layout">
+        <article class="journal-row">
+            <div class="entry-half with-border-right">
+                <div class="meta-title">Wiring Setup</div>
+                <img src="./Photos/CANTB/prototype.png" alt="Prototype wiring" class="entry-img-contain">
             </div>
-            <div class="entry-content">
-                <div class="entry-title">Prototype 1</div>
-                <p>Using the transciever, I connected two ESP32 boards to work on firmware to allow communication.</p>
-                <p>Unfortunately, I discovered that a CAN network needs termination caps to ensure stable signal, which our first prototype did not have....</p>
-                <!-- <div class="entry-date">May 15, 2023</div> -->
+            <div class="entry-half">
+                <div class="meta-title">Prototype 1</div>
+                <p>Using the transceiver, I connected two ESP32 boards to work on firmware to allow communication.</p>
+                <p>Unfortunately, I discovered that a CAN network needs termination caps to ensure stable signal, which our first prototype did not have...</p>
             </div>
-        </div>
+        </article>
 
-         <!-- Entry with image and text -->
-        <div class="journal-entry">
-            <div class="entry-image">
-                <img src="./Photos/CANTB/teamwork.png" alt="PCB layout">
+        <article class="journal-row">
+            <div class="entry-half with-border-right">
+                <div class="meta-title">Lab Work</div>
+                <img src="./Photos/CANTB/teamwork.png" alt="Team debugging" class="entry-img-contain">
             </div>
-            <div class="entry-content">
-                <div class="entry-title">Debug!</div>
-                <p>To allow CAN Bus for ESP32, we chose to implement CAN Bus communication the built-in TWAI library.</p> 
-                <p>We wrote modular classed based code to help customise it to different subsystems/sensors, while allowing future developements of the firmware.</p>
-                <!-- <div class="entry-date">May 15, 2023</div> -->
+            <div class="entry-half">
+                <div class="meta-title">Debug Process</div>
+                <p>To allow CAN Bus for ESP32, we chose to implement CAN Bus communication using the built-in TWAI library.</p> 
+                <p>We wrote modular class-based code to help customize it to different subsystems/sensors, while allowing future developments of the firmware.</p>
             </div>
-        </div>
+        </article>
 
-         <!-- code entry -->
-        <details class="code-block-container">
-            <summary>Code</summary>
-            <div class="code-block">
-                <code>
-/* CalSol - UC Berkeley Solar Vehicle Team
+        <div class="code-block-wrapper">
+            <details class="code-block-container">
+                <summary>can_communication.h</summary>
+                <div class="code-block"><code>/* CalSol - UC Berkeley Solar Vehicle Team
  * can_communication.h - Gen11
  * Purpose: ESP32 CAN Protocol Definitions
  * Author(s): Kevin Ying, Haaziq Kazi, DeepSeek 2025
  * Date: 13th April 2025
  */
 
- #ifndef CAN_COMMUNICATION_H
- #define CAN_COMMUNICATION_H
- 
- #include <Arduino.h>
- #include <algorithm>
- #include "driver/twai.h"  // ESP32 CAN (TWAI) library
- #include <cstring>       // for memcpy
- #include "can_message.h"
- 
- #define SEND_TIMEOUT_MS 100     // ms
- #define RECEIVE_TIMEOUT_MS 1000 // ms
- class CANDevice {
- private:
-     static const size_t MAX_ALLOWED_IDS = 10;
-     uint32_t allowedIDs[MAX_ALLOWED_IDS];
-     size_t numAllowedIDs;
-     uint32_t self_ID;
-     bool driver_initialized = false;
-     uint8_t TX;
-     uint8_t RX;
- 
-     /* Helper function for unpacking CAN messages */
-     void unpackMessage(const CANMessage& msg, void* data_dest, size_t dest_len) {
-         if (msg.len == dest_len) {
-             memcpy(data_dest, msg.data, dest_len);
-             Serial.println("✅ Message unpacked successfully!");
-         } else {
-             Serial.println("❌ The destination data length does not match the message length.");
-         }
-     }
- 
-     /* Helper function to filter allowed CAN IDs */
-     bool filterMessage(uint32_t id) const {
-         if (numAllowedIDs == 0) return true; // Accept all if no filters set
-         return std::binary_search(allowedIDs, allowedIDs + numAllowedIDs, id);
-     }
- 
- public:
-     // Constructor
-     CANDevice(uint32_t id, uint8_t tx_pin, uint8_t rx_pin, 
+#ifndef CAN_COMMUNICATION_H
+#define CAN_COMMUNICATION_H
+
+#include &lt;Arduino.h&gt;
+#include &lt;algorithm&gt;
+#include "driver/twai.h"  // ESP32 CAN (TWAI) library
+#include &lt;cstring&gt;        // for memcpy
+#include "can_message.h"
+
+#define SEND_TIMEOUT_MS 100     // ms
+#define RECEIVE_TIMEOUT_MS 1000 // ms
+
+class CANDevice {
+private:
+    static const size_t MAX_ALLOWED_IDS = 10;
+    uint32_t allowedIDs[MAX_ALLOWED_IDS];
+    size_t numAllowedIDs;
+    uint32_t self_ID;
+    bool driver_initialized = false;
+    uint8_t TX;
+    uint8_t RX;
+
+    /* Helper function for unpacking CAN messages */
+    void unpackMessage(const CANMessage& msg, void* data_dest, size_t dest_len) {
+        if (msg.len == dest_len) {
+            memcpy(data_dest, msg.data, dest_len);
+            Serial.println("✅ Message unpacked successfully!");
+        } else {
+            Serial.println("❌ The destination data length does not match the message length.");
+        }
+    }
+
+    // ... (Remainder of class methods) ...
+    
+public:
+    CANDevice(uint32_t id, uint8_t tx_pin, uint8_t rx_pin, 
               const uint32_t* filter_IDs = nullptr, size_t num_filtered_IDs = 0) :
-         self_ID(id),
-         numAllowedIDs(std::min(num_filtered_IDs, MAX_ALLOWED_IDS))
-     {
-         if (filter_IDs && numAllowedIDs > 0) {
-             memcpy(allowedIDs, filter_IDs, numAllowedIDs * sizeof(uint32_t));
-             std::sort(allowedIDs, allowedIDs + numAllowedIDs);
-         }
-
-         TX = tx_pin;
-         RX = rx_pin;
-     }
- 
-     /**
-      * Initialize the CAN interface
-      * @return true if initialization succeeded, false otherwise
-      */
-     bool begin() {
-         Serial.println("Initializing TWAI CAN bus...");
-         
-         twai_general_config_t g_config = TWAI_GENERAL_CONFIG_DEFAULT(gpio_num_t(TX), gpio_num_t(RX), TWAI_MODE_NORMAL);
-         twai_timing_config_t t_config = TWAI_TIMING_CONFIG_500KBITS(); // 500 Kbps
-         twai_filter_config_t f_config = TWAI_FILTER_CONFIG_ACCEPT_ALL();
- 
-         if (twai_driver_install(&g_config, &t_config, &f_config) != ESP_OK) {
-             Serial.println("❌ Failed to install TWAI driver");
-             return false;
-         }
- 
-         if (twai_start() != ESP_OK) {
-             Serial.println("❌ Failed to start TWAI driver");
-             return false;
-         }
- 
-         driver_initialized = true;
-         Serial.println("✅ TWAI driver started successfully");
-         return true;
-     }
- 
-     /**
-      * Sends a CAN message using the CAN interface
-      * @param message The CANMessage structure containing message ID, length, and data
-      * @returns True if the message was sent successfully, otherwise false
-      */
-     bool send(const CANMessage &message) {
-         if (!driver_initialized) {
-             Serial.println("❌ CAN driver not initialized");
-             return false;
-         }
- 
-         if (message.len > 8) {
-             Serial.println("❌ Message length exceeds 8 bytes");
-             return false;
-         }
- 
-         twai_message_t twai_msg;
-         twai_msg.identifier = message.id;
-         twai_msg.flags = TWAI_MSG_FLAG_NONE;
-         twai_msg.data_length_code = message.len;
-         memcpy(twai_msg.data, message.data, message.len);
- 
-         if (twai_transmit(&twai_msg, pdMS_TO_TICKS(SEND_TIMEOUT_MS)) == ESP_OK) {
-            Serial.println("Message transmitted!");
-            return !ESP_OK;
-        } 
-        Serial.println("Failed to transmit message...");
-        return !ESP_OK;
-     }
-
-     bool send(uint8_t len, const uint8_t* data) {
-        if (!driver_initialized) {
-            Serial.println("❌ CAN driver not initialized");
-            return false;
+        self_ID(id),
+        numAllowedIDs(std::min(num_filtered_IDs, MAX_ALLOWED_IDS))
+    {
+        if (filter_IDs && numAllowedIDs > 0) {
+            memcpy(allowedIDs, filter_IDs, numAllowedIDs * sizeof(uint32_t));
+            std::sort(allowedIDs, allowedIDs + numAllowedIDs);
         }
-
-        if (len > 8) {
-            Serial.println("❌ Message length exceeds 8 bytes");
-            return false;
-        }
-
-        twai_message_t twai_msg;
-        twai_msg.identifier = self_ID;
-        twai_msg.flags = TWAI_MSG_FLAG_NONE;
-        twai_msg.data_length_code = len;
-        memcpy(twai_msg.data, data, len);
-
-        if (twai_transmit(&twai_msg, pdMS_TO_TICKS(SEND_TIMEOUT_MS)) == ESP_OK) {
-           Serial.println("Message transmitted!");
-           return !ESP_OK;
-       } 
-       Serial.println("Failed to transmit message...");
-       return !ESP_OK;
+        TX = tx_pin;
+        RX = rx_pin;
     }
- 
-     /**
-      * Receives a CAN message
-      * @returns CANMessage object if a valid message is received, otherwise empty message
-      */
-     CANMessage receive() {
-        if (!driver_initialized) {
-            Serial.println("❌ CAN driver not initialized");
-            return CANMessage();  // Consider making this return value more explicit
-        }
     
-        twai_message_t message;
-        esp_err_t status = twai_receive(&message, pdMS_TO_TICKS(RECEIVE_TIMEOUT_MS));
-    
-        // status check
-        if (status == ESP_ERR_TIMEOUT) {
-            return CANMessage();  // Optional: Different return for timeout vs error
-        }
-        else if (status != ESP_OK) {
-            Serial.printf("❌ Failed to receive (error: 0x%X)\n", status);
-            return CANMessage();
-        }
-    
-        if (!filterMessage(message.identifier)) {
-            // Message filtered out or it's a remote frame
-            if (message.rtr) {
-                Serial.println("⚠️ Remote frame filtered out");
-            } else {
-                Serial.printf("⚠️ Filtered out message (ID: 0x%X)\n", message.identifier);
-            }
-            return CANMessage();
-        }
-        
-        Serial.print("CAN received: ");
-        for (int i = 0; i < message.data_length_code; i++) {
-            if (message.data[i] < 0x10) Serial.print("0"); // leading zero for values < 0x10
-            Serial.print(message.data[i], HEX);
-            Serial.print(" ");
-          }
-          Serial.println();
+    // ...
+};
 
-        return CANMessage(message.identifier, 
-                         message.data_length_code, 
-                         message.data);
-    }
- 
-     /**
-      * Shutdown the CAN interface
-      */
-     void end() {
-         if (driver_initialized) {
-             twai_stop();
-             twai_driver_uninstall();
-             driver_initialized = false;
-             Serial.println("✅ CAN driver stopped");
-         }
-     }
- 
-     ~CANDevice() {
-         end();
-     }
- };
- 
- #endif // CAN_COMMUNICATION_H
-                </code>
-            </div>
-        </details>
-
-        <!-- Image-only entry -->
-        <div class="journal-entry">
-            <div class="entry-image-full">
-                <div class="entry-title">Testing CAN Communication on Testbench</div>
-                <img src="./Photos/CANTB/bench.png" alt="Team meeting">
-                <!-- <div class="entry-date">May 15, 2023</div> -->
-            </div>
+#endif // CAN_COMMUNICATION_H</code></div>
+            </details>
         </div>
 
-        <!-- Image-only entry -->
-        <div class="journal-entry">
-            <div class="entry-image-full">
-                <img src="./Photos/CANTB/board_closeup.png" alt="Team meeting">
-                <!-- <div class="entry-date">May 15, 2023</div> -->
+        <article class="journal-row">
+            <div class="entry-full">
+                <div class="meta-title">Testing CAN Communication on Testbench</div>
+                <img src="./Photos/CANTB/bench.png" alt="Testbench setup" class="entry-img-full">
             </div>
-        </div>
+        </article>
 
-        <!-- Entry with image and text -->
-        <div class="journal-entry">
-            <div class="entry-image">
-                <img src="./Photos/CANTB/teameat1.png" alt="PCB layout">
+        <article class="journal-row">
+            <div class="entry-full">
+                <div class="meta-title">Board Closeup</div>
+                <img src="./Photos/CANTB/board_closeup.png" alt="Board Closeup" class="entry-img-full">
             </div>
-            <div class="entry-content">
-                <div class="entry-title">Reflections</div>
+        </article>
+
+        <article class="journal-row">
+            <div class="entry-half with-border-right">
+                <div class="meta-title">Team</div>
+                <img src="./Photos/CANTB/teameat1.png" alt="Team eating" class="entry-img-contain">
+            </div>
+            <div class="entry-half">
+                <div class="meta-title">Reflections</div>
+                <div class="meta-date">May 15, 2025</div>
                 <p>I’ve made great friends at CalSol, including Ahmed, Haaziq, Preston, and worked with electrical subsystem lead Jonathan to achieve the club’s goals. We had a great time working on the project.</p>
                 <p>We’ve finally created a functional system that transitions the club’s new sensors and components to use the ESP32 board. This includes hardware design and firmware support.</p>
-                <div class="entry-date">May 15, 2025</div>
+            </div>
+        </article>
+
+    </main>
+
+    <footer>
+        <div class="grid-container">
+            <div class="footer-content">
+                Footer Content
             </div>
         </div>
+    </footer>
 
-
-    </div>
 </body>
-<h1 class="footer">Footer</h1>
 </html>

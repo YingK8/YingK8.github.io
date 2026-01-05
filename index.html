@@ -3,240 +3,491 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kevin Ying - Portfolio</title>
+    <title>CANTB - CalSol</title>
+    
     <style>
+        /* --- CSS Variables (Matched to Work Page) --- */
+        :root {
+            --bg-color: #f5f5f5;
+            --text-color: #333;
+            --accent-color: #000;
+            --grid-max-width: 1200px;
+            --nav-height: 60px;
+            --gap-size: 1rem;
+        }
 
+        /* --- Reset & Base --- */
         * {
-          box-sizing: border-box;
-          margin: 0;
-          padding: 0;
-        } 
-        
-        body { 
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f5f5f5;
-            padding-top: 60px; /* Space for fixed navbar */
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        h1 {
-            text-align: left;
-            color: #2c3e50;
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-        }
-
-        p {
-            font-size: 0.8rem;
-            margin-bottom: 0.8rem;
-        }
-
-        /* Main content layout */
-        .footer {
-            position: relative; /* or sticky */
-            margin-top: 3rem;
+            box-sizing: border-box;
+            margin: 0;
             padding: 0;
-            bottom: 0px;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding-top: var(--nav-height);
+            padding-bottom: 2rem;
+            min-height: 100vh;
         }
 
-        .main-container {
-            display: flex;
-            /* flex-direction: column; */
-            /* max-width: 100vw; */
-            overflow-x: hidden;
-            padding-top: 0.5rem;
-        }
+        a { text-decoration: none; color: inherit; }
 
-        @media (min-width: 900px) {
-            /* .main-container {
-                flex-direction: row;
-                height: calc(100vh - 60px);
-            } */
-            h1 {
-                padding-left: 1rem;
-            }
+        h1 { font-size: 2rem; color: #2c3e50; margin-bottom: 0.5rem; }
+        h2 { font-size: 1.2rem; color: #555; margin-bottom: 1rem; font-weight: 400; }
+        p { margin-bottom: 1rem; }
 
-            .main-container {
-                height: calc(100vh);
-            }
-
-            .footer {
-                padding-left: 1rem;
-            }
-            .bio-section {
-                flex: 0 0 30%;
-                padding: 1rem;
-                overflow-y: auto;
-                height: 100%;
-            }
-            .cards-section {
-                flex: 0 0 70%;
-                padding: 1rem;
-                overflow-y: auto;
-                height: 100%;
-            }
-        }
-
-        /* Navbar styles */
-        .navbar {
-            background-color: #f5f5f5;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+        /* --- Navbar (Identical to Work Page) --- */
+        .navbar-wrapper {
             position: fixed;
             top: 0;
-            width: 100%;
-            left: 50%;
-            transform: translateX(-50%); /* Perfect centering */
-            z-index: 5;
-            border-bottom: 1px solid #000;
-        }
-        
-        .navbar a {
-            color: rgb(0, 0, 0);
-            text-align: center;
-            padding: 15px 0;
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .navbar a:not(:last-child) {
-            border-right: 1px solid #000;
-        }
-        
-        .navbar a:hover {
-            background-color: #ddd;
-        }
-
-        /* Cards section styles */
-        .cards {
-            display: grid;
-            gap: 0.5rem;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        }
-        
-        .card {
-            background-color: none;
-            border: 1px solid #000;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            aspect-ratio: 1/1;
-            place-items: center;
-        }
-/* 
-        .card:active {
-            transform: translateY(3px);
-        } */
-
-        /* For anchor tag cards */
-        a.card {
-            display: block;
-        }
-
-        .card:hover {
-            transform: translateY(-3px);
-            cursor:pointer;
-        }
-        
-        .card-number {
-            position: absolute;
-            top: 0;
             left: 0;
-            color: rgb(0, 0, 0);
-            width: 25px;
-            height: 30px;
+            width: 100%;
+            height: var(--nav-height);
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--accent-color);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar-inner {
+            width: 100%;
+            max-width: var(--grid-max-width);
+            height: 100%;
+        }
+
+        .nav-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 100%;
+            width: 100%;
+        }
+
+        .nav-link {
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 2;
-        }
-        
-        .card-img {
-            width: 100%;
+            font-weight: 500;
             height: 100%;
-            object-fit: cover;
-            position: absolute;
-        }
-
-        .card-img-graphic {
-            width: 80%; /* Adjust this percentage to control image size */
-            height: 60%; /* Maintain aspect ratio */
-            position: absolute; /* Required for centering with transform */
-            left: 50%; /* Start at 50% from left */
-            top: 50%; /* Start at 50% from top */
-            transform: translate(-50%, -50%); /* Shift back by half of element's dimensions */
-            object-fit: contain; /* Show entire image without cropping */
-            /* border-radius: 10px; */
-            /* box-shadow: 0 4px 15px rgb(206, 206, 206); */
-        }
-        
-        .card-content {
-            position: absolute;
-            bottom: 0;
-            left: 0;
             width: 100%;
-            padding: 0.3rem;
-            color: rgb(0, 0, 0);
+            transition: background-color 0.2s ease;
         }
         
-        .card-title {
-            margin: 0;
+        .nav-link:first-child { 
+            border-right: 1px solid var(--accent-color); 
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 600px) {
-            .cards { grid-template-columns: repeat(2, 1fr); }
-            .profile-img {
-                width: 100px;
-                height: 100px;
+        .nav-link:hover { background-color: #e0e0e0; }
+
+        /* --- The Modular Grid System --- */
+        .grid-container {
+            width: 100%;
+            max-width: var(--grid-max-width);
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--gap-size);
+        }
+
+        /* --- Content Layout Blocks --- */
+        
+        /* The container for each "row" of content */
+        .journal-block {
+            grid-column: 1 / -1; /* Spans full width of the grid */
+            border: 1px solid var(--accent-color);
+            display: flex;
+            flex-direction: column;
+            background: transparent;
+            overflow: hidden;
+            /* Matches the card style */
+        }
+
+        /* For the Introduction Section */
+        .intro-block {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+            /* No border for the intro to keep it clean, or add one if preferred */
+        }
+
+        .intro-text {
+            padding: 1rem 0;
+        }
+
+        /* Internal Flex Layout for Desktop (50/50 Split) */
+        @media (min-width: 768px) {
+            .journal-block {
+                flex-direction: row;
+                min-height: 400px; /* Consistent height */
+            }
+
+            .intro-block {
+                flex-direction: row;
+                align-items: center;
+                gap: 2rem;
+            }
+
+            .intro-text {
+                width: 50%;
+                padding-right: 2rem;
+            }
+
+            .intro-image-wrapper {
+                width: 50%;
+            }
+
+            /* Journal Content Splits */
+            .block-media {
+                width: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 2rem;
+                border-right: 1px solid var(--accent-color);
+            }
+            
+            /* If the image is on the right, switch order */
+            .journal-block.reverse .block-media {
+                order: 2;
+                border-right: none;
+                border-left: 1px solid var(--accent-color);
+            }
+
+            .block-content {
+                width: 50%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 3rem;
+                position: relative;
+            }
+            
+            /* Full Width Image Block */
+            .journal-block.full-width {
+                flex-direction: column;
+                height: auto;
+            }
+            .journal-block.full-width .block-media {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--accent-color);
+            }
+            .journal-block.full-width .block-content {
+                width: 100%;
+                padding: 1rem;
+                border: none;
             }
         }
+
+        /* Image Styling */
+        .block-media img {
+            max-width: 100%;
+            max-height: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .block-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #000;
+        }
+
+        .entry-date {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* --- Code Block Styling (Preserved) --- */
+        .code-container-wrapper {
+            grid-column: 1 / -1;
+            margin-bottom: 0;
+        }
+
+        .code-block-container {
+            border: 1px solid var(--accent-color);
+            background: #252525;
+            width: 100%;
+        }
+
+        .code-block-container summary {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            color: #f5f5f5;
+            background-color: #000;
+            cursor: pointer;
+            list-style: none;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .code-block-container summary:hover {
+            background-color: #333;
+        }
         
-        @media (max-width: 400px) {
-            .cards { grid-template-columns: 1fr; }
+        /* Arrow Icon */
+        .code-block-container summary::before {
+            content: '';
+            width: 18px;
+            height: 18px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-right: 0.6rem;
+            transition: transform 0.2s;
+        }
+
+        .code-block-container[open] summary::before {
+            transform: rotate(90deg);
+        }
+
+        .code-block-container .code-block {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            background-color: #1e1e1e;
+            transition: max-height 0.3s ease;
+        }
+
+        .code-block-container[open] .code-block {
+            max-height: fit-content;
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+
+        /* The specific code style you asked for */
+        .code-block code {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            color: #ffffff !important; /* Pure White */
+            background-color: transparent !important; /* No Highlight */
+            white-space: pre-wrap;
+            font-size: 0.9rem;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+            border-top: 1px solid #ccc;
         }
     </style>
 </head>
-<body>
-    <nav class="navbar">
-      <a href="./index.html">Work</a>
-      <a href="./about.html">Contact</a>
-    </nav>
-    
-    <h1>Work</h1>
 
-    <div class="main-container">
-        <section class="cards-section">
-            <div class="cards">
-                <a href="./CANTB.html" class="card">
-                    <div class="card-number">1</div>
-                    <img src="./Photos/CANTB/bench.png" alt="Project 1" class="card-img-graphic">
-                    <div class="card-content">
-                        <p class="card-title">CAN Testbench</p>
-                    </div>
-                </a>
-<!--                 
-                <div class="card">
-                    <div class="card-number">2</div>
-                    <img src="https://www.volusion.com/blog/content/images/2018/10/WhiteItem.jpg" alt="Project 2" class="card-img-graphic">
-                    <div class="card-content">
-                        <p class="card-title">Urban Life</p>
-                    </div>
-                </div>
-                
-                <div class="card">
-                  <div class="card-number">3</div>
-                  <img src="https://www.volusion.com/blog/content/images/2018/10/WhiteItem.jpg" alt="Project 2" class="card-img-graphic">
-                  <div class="card-content">
-                      <p class="card-title">Urban Life</p>
-                  </div>
-              </div> -->
+<body>
+
+    <nav class="navbar-wrapper">
+        <div class="navbar-inner">
+            <div class="nav-links">
+                <a href="./index.html" class="nav-link">Work</a>
+                <a href="./about.html" class="nav-link">Contact</a>
             </div>
-        </section>
-    </div>
+        </div>
+    </nav>
+
+    <main class="grid-container">
+        
+        <div class="intro-block">
+            <div class="intro-text">
+                <h1>CAN Testbench</h1>
+                <h2>CalSol, Spring 2025</h2>
+                <p>On the CAN TB team, we led the club’s switch to ESP microprocessors and designed the PCB and firmware for CAN bus communication on the ESP32.</p>
+            </div>
+            <div class="intro-image-wrapper">
+                 <img src="./Photos/CANTB/group _photo.png" alt="Team meeting" style="width:100%; border:1px solid #000;">
+            </div>
+        </div>
+
+        <div class="journal-block">
+            <div class="block-media">
+                <img src="./Photos/CANTB/latestLayout.png" alt="PCB layout">
+            </div>
+            <div class="block-content">
+                <div class="block-title">ESP32 Dev Board</div>
+                <p>We helped fix the ESP dev board layout from last semester, and updated to be printed by JLCPCB.</p>
+                <p>I rearranged components, vias, and added the silkscreen.</p>
+            </div>
+        </div>
+
+        <div class="journal-block">
+            <div class="block-media">
+                <img src="./Photos/CANTB/small_layout.png" alt="PCB layout">
+            </div>
+            <div class="block-content">
+                <div class="block-title">CAN Bus Transceiver</div>
+                <p>To allow other ESP32 dev boards to have CAN bus capabilities, we also designed our own transceiver module.</p>
+                <p>It was based off of the ESP32 Dev Board.</p>
+            </div>
+        </div>
+        
+        <div class="journal-block full-width">
+            <div class="block-content" style="border-bottom:1px solid #000; padding: 1rem;">
+                <div class="block-title">Transceiver Photo</div>
+            </div>
+            <div class="block-media" style="padding:0; border:none;">
+                <img src="./Photos/CANTB/IMG_8619.png" alt="Transceiver Photo" style="width:100%;">
+            </div>
+        </div>
+
+        <div class="journal-block">
+            <div class="block-media">
+                <img src="./Photos/CANTB/prototype.png" alt="Prototype wiring">
+            </div>
+            <div class="block-content">
+                <div class="block-title">Prototype 1</div>
+                <p>Using the transceiver, I connected two ESP32 boards to work on firmware to allow communication.</p>
+                <p>Unfortunately, I discovered that a CAN network needs termination caps to ensure stable signal, which our first prototype did not have...</p>
+            </div>
+        </div>
+
+        <div class="journal-block">
+            <div class="block-media">
+                <img src="./Photos/CANTB/teamwork.png" alt="Team debugging">
+            </div>
+            <div class="block-content">
+                <div class="block-title">Debug!</div>
+                <p>To allow CAN Bus for ESP32, we chose to implement CAN Bus communication using the built-in TWAI library.</p> 
+                <p>We wrote modular class-based code to help customize it to different subsystems/sensors, while allowing future developments of the firmware.</p>
+            </div>
+        </div>
+
+         <div class="code-container-wrapper">
+            <details class="code-block-container">
+                <summary>Code View</summary>
+                <div class="code-block"><code>/* CalSol - UC Berkeley Solar Vehicle Team
+ * can_communication.h - Gen11
+ * Purpose: ESP32 CAN Protocol Definitions
+ * Author(s): Kevin Ying, Haaziq Kazi, DeepSeek 2025
+ * Date: 13th April 2025
+ */
+
+#ifndef CAN_COMMUNICATION_H
+#define CAN_COMMUNICATION_H
+
+#include &lt;Arduino.h&gt;
+#include &lt;algorithm&gt;
+#include "driver/twai.h"  // ESP32 CAN (TWAI) library
+#include &lt;cstring&gt;        // for memcpy
+#include "can_message.h"
+
+#define SEND_TIMEOUT_MS 100     // ms
+#define RECEIVE_TIMEOUT_MS 1000 // ms
+
+class CANDevice {
+private:
+    static const size_t MAX_ALLOWED_IDS = 10;
+    uint32_t allowedIDs[MAX_ALLOWED_IDS];
+    size_t numAllowedIDs;
+    uint32_t self_ID;
+    bool driver_initialized = false;
+    uint8_t TX;
+    uint8_t RX;
+
+    /* Helper function for unpacking CAN messages */
+    void unpackMessage(const CANMessage& msg, void* data_dest, size_t dest_len) {
+        if (msg.len == dest_len) {
+            memcpy(data_dest, msg.data, dest_len);
+            Serial.println("✅ Message unpacked successfully!");
+        } else {
+            Serial.println("❌ The destination data length does not match the message length.");
+        }
+    }
+
+    /* Helper function to filter allowed CAN IDs */
+    bool filterMessage(uint32_t id) const {
+        if (numAllowedIDs == 0) return true; // Accept all if no filters set
+        return std::binary_search(allowedIDs, allowedIDs + numAllowedIDs, id);
+    }
+
+public:
+    // Constructor
+    CANDevice(uint32_t id, uint8_t tx_pin, uint8_t rx_pin, 
+              const uint32_t* filter_IDs = nullptr, size_t num_filtered_IDs = 0) :
+        self_ID(id),
+        numAllowedIDs(std::min(num_filtered_IDs, MAX_ALLOWED_IDS))
+    {
+        if (filter_IDs && numAllowedIDs > 0) {
+            memcpy(allowedIDs, filter_IDs, numAllowedIDs * sizeof(uint32_t));
+            std::sort(allowedIDs, allowedIDs + numAllowedIDs);
+        }
+        TX = tx_pin;
+        RX = rx_pin;
+    }
+
+    bool begin() {
+        Serial.println("Initializing TWAI CAN bus...");
+        twai_general_config_t g_config = TWAI_GENERAL_CONFIG_DEFAULT(gpio_num_t(TX), gpio_num_t(RX), TWAI_MODE_NORMAL);
+        twai_timing_config_t t_config = TWAI_TIMING_CONFIG_500KBITS(); // 500 Kbps
+        twai_filter_config_t f_config = TWAI_FILTER_CONFIG_ACCEPT_ALL();
+
+        if (twai_driver_install(&g_config, &t_config, &f_config) != ESP_OK) {
+            Serial.println("❌ Failed to install TWAI driver");
+            return false;
+        }
+
+        if (twai_start() != ESP_OK) {
+            Serial.println("❌ Failed to start TWAI driver");
+            return false;
+        }
+
+        driver_initialized = true;
+        Serial.println("✅ TWAI driver started successfully");
+        return true;
+    }
+
+    // ... (Remainder of code remains same) ...
+
+    ~CANDevice() {
+        end();
+    }
+};
+
+#endif // CAN_COMMUNICATION_H</code></div>
+            </details>
+        </div>
+
+        <div class="journal-block full-width">
+            <div class="block-content" style="border-bottom:1px solid #000; padding:1rem;">
+                <div class="block-title">Testing CAN Communication on Testbench</div>
+            </div>
+            <div class="block-media" style="padding:0; border:none;">
+                <img src="./Photos/CANTB/bench.png" alt="Testbench setup" style="width:100%;">
+            </div>
+        </div>
+
+        <div class="journal-block full-width">
+            <div class="block-media" style="padding:0; border:none;">
+                <img src="./Photos/CANTB/board_closeup.png" alt="Board Closeup" style="width:100%;">
+            </div>
+        </div>
+
+        <div class="journal-block">
+            <div class="block-media">
+                <img src="./Photos/CANTB/teameat1.png" alt="Team eating">
+            </div>
+            <div class="block-content">
+                <div class="block-title">Reflections</div>
+                <p>I’ve made great friends at CalSol, including Ahmed, Haaziq, Preston, and worked with electrical subsystem lead Jonathan to achieve the club’s goals. We had a great time working on the project.</p>
+                <p>We’ve finally created a functional system that transitions the club’s new sensors and components to use the ESP32 board. This includes hardware design and firmware support.</p>
+                <div class="entry-date">May 15, 2025</div>
+            </div>
+        </div>
+
+        <div style="grid-column: 1 / -1;">
+            <div class="footer">Footer</div>
+        </div>
+
+    </main>
 </body>
-<h1 class="footer">Footer</h1>
 </html>

@@ -5,190 +5,310 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kevin Ying - Portfolio</title>
     <style>
+        /* --- CSS Variables --- */
+        :root {
+            --bg-color: #F8F8F8;
+            --text-color: #333333;
+            --card-color: #FFFFFF;
+            --border-color: #E0E0E0;
+            --accent-color: #000000;
+            --grid-max-width: 1200px;
+            --nav-height: 60px;
+            --gap-size: 1.5rem;
+            --text-max-width: 65ch;
+        }
 
+        /* --- Reset & Base --- */
         * {
-          box-sizing: border-box;
-          margin: 0;
-          padding: 0;
-        }
-        
-        body { 
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f5f5f5;
-            padding-top: 60px; /* Space for fixed navbar */
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        h1 {
-            text-align: left;
-            color: #2c3e50;
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-        }
-
-        p {
-            font-size: 0.8rem;
-            margin-bottom: 0.8rem;
-        }
-
-        /* Main content layout */
-        .footer {
-            position: relative; /* or sticky */
-            margin-top: 3rem;
+            box-sizing: border-box;
+            margin: 0;
             padding: 0;
-            bottom: 0px;
         }
-
-        .main-container {
+        
+        body {
+            font-family: 'Courier New', monospace;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding-top: var(--nav-height);
             display: flex;
             flex-direction: column;
-            /* max-width: 100vw; */
-            overflow-x: hidden;
+            min-height: 100vh;
+            padding-bottom: 2rem;
+            font-size: 0.95rem;
         }
 
-        @media (min-width: 500px) {
-            .main-container {
-                flex-direction: row;
-                height: calc(100vh);
-            }
-            .bio-section {
-                flex: 0 0 30%;
-                padding: 1rem;
-                overflow-y: auto;
-                height: 100%;
-                min-width: 300px;
-            }
-        }
+        a { text-decoration: none; color: inherit; }
+        h1 { margin-bottom: 1rem; font-size: 2rem; }
+        h2 { margin-bottom: 1rem; font-size: 1.2rem; }
+        h3 { margin-bottom: 1rem; font-weight: bold; }
+        p { margin-bottom: 0.8rem; font-size: 0.95rem; }
 
-        /* Navbar styles */
-        .navbar {
-            background-color: #f5f5f5;
+        /* --- The Modular Grid System --- */
+        .grid-container {
+            width: 100%;
+            max-width: var(--grid-max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--gap-size);
+        }
+
+        /* --- Navbar --- */
+        .navbar-wrapper {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
-            left: 50%;
-            transform: translateX(-50%); /* Perfect centering */
-            z-index: 5;
-            border-bottom: 1px solid #000;
+            height: var(--nav-height);
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--accent-color);
+            z-index: 100;
+            display: block;
+        }
+
+        .navbar-inner {
+            width: 100%;
+            max-width: none;
+            padding: 0;
+            height: 100%;
+        }
+
+        .nav-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 100%;
+            width: 100%;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            transition: background-color 0.2s ease;
         }
         
-        .navbar a {
-            color: rgb(0, 0, 0);
-            text-align: center;
-            padding: 15px 0;
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .nav-link:first-child { 
+            border-right: 1px solid var(--accent-color); 
         }
 
-        .navbar a:not(:last-child) {
-            border-right: 1px solid #000;
-        }
-        
-        .navbar a:hover {
-            background-color: #ddd;
+        .nav-link:hover { background-color: #e0e0e0; }
+
+        .nav-link h2 {
+            margin: 0;
+            font-weight: inherit;
         }
 
-        /* Bio section styles */
-        .bio-section {
-            padding: 1rem;
+        /* --- Main Content Layout --- */
+        main {
+            padding-top: 2rem;
+            flex: 1;
         }
 
+        /* --- Portfolio Layout --- */
+        .portfolio-intro-section {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+            margin-top: 2rem;
+        }
+
+        .portfolio-text {
+            grid-column: 1 / 7;
+            padding-right: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .portfolio-text h1,
+        .portfolio-text p {
+            max-width: var(--text-max-width);
+        }
+
+        .portfolio-image {
+            grid-column: 7 / -1;
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            object-fit: cover;
+            border: 1px solid var(--accent-color);
+        }
+
+        /* Profile image styling */
         .profile-img-container {
             text-align: left;
-            margin: 0 auto 1rem;
+            margin: 0 0 2rem 0;
         }
 
         .profile-img {
-            width: 120px;
-            height: 120px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            /* border: 2px solid #333; */
+            border: 1px solid var(--accent-color);
         }
 
-        /* contact buttons */
+        /* Contact buttons - adapted to journal style */
         .contact-buttons {
             display: flex;
-            flex-direction: column; /* horizontal by default (narrow screens) */
-            gap: 0.5rem;
-            margin: 0.5em;
-            max-width: 270px;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin: 2rem 0;
+            max-width: 300px;
         }
-
-        @media (min-width: 500px) {
-            .contact-buttons {
-                flex-direction: column; /* vertical on wide screens */
-                width: 100%;
-                margin-top: 1.8rem;
-            }
-        }
-
 
         .contact-buttons a {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.8rem;
             text-align: left;
             text-decoration: none;
-            padding: 0.5rem;
-            padding-right: 5%;
-            background-color: transparent;
-            border: 1px solid #000;
-            color: black;
-            transition: background-color 0.3s ease;
+            padding: 0.8rem 1rem;
+            background-color: var(--card-color);
+            border: 1px solid var(--accent-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
         }
 
         .contact-buttons a::before {
             content: "";
             display: inline-block;
-            width: 18px;
-            height: 18px;
+            width: 15px;
+            height: 15px;
             background-image: url("./icons/send-arrow-black.svg");
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
         }
 
         .contact-buttons a:hover {
-            background-color: #ddd;
+            background-color: #e0e0e0;
         }
 
         .contact-buttons a:hover::before {
             transform: rotate(45deg);
         }
 
+        /* Education info styling */
+        .education-info {
+            margin: 1.5rem 0;
+            padding: 1rem 0;
+            /* border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color); */
+            /* font-size: 0.95rem; */
+            font-weight: bold;
+            /* letter-spacing: 0.5px; */
+        }
+
+        /* --- Footer --- */
+        footer {
+            margin-top: 4rem;
+            padding: 2rem 0;
+        }
+        
+        .footer-content { 
+            grid-column: 1 / -1; 
+            color: #666; 
+            font-size: 0.9rem; 
+            text-align: center;
+            max-width: var(--text-max-width);
+            margin: 0 auto;
+        }
+
+        /* --- Responsiveness --- */
+        @media (max-width: 768px) {
+            .portfolio-text { 
+                grid-column: 1 / -1; 
+                margin-bottom: 1rem; 
+                padding-right: 0;
+            }
+            
+            .portfolio-text h1,
+            .portfolio-text p {
+                max-width: 100%;
+            }
+            
+            .portfolio-image { 
+                grid-column: 1 / -1; 
+                min-height: 250px; 
+                margin-top: 1rem;
+            }
+            
+            .profile-img {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .contact-buttons {
+                max-width: 100%;
+            }
+            
+            :root {
+                --text-max-width: 100%;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            :root {
+                --text-max-width: 70ch;
+            }
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-      <a href="./index.html">Work</a>
-      <a href="#contact">Contact</a>
+
+    <nav class="navbar-wrapper">
+        <div class="navbar-inner">
+            <div class="nav-links">
+                <a href="./index.html" class="nav-link"><h2>Work</h2></a>
+                <a href="#contact" class="nav-link"><h2>Contact</h2></a>
+            </div>
+        </div>
     </nav>
 
-    <div class="main-container">
-        <section class="bio-section">
-            <h1>About</h1>
-            <div class="profile-img-container">
-                <img class="profile-img" src="Photos/flowers/IMG_6768.PNG" alt="Profile Photo"> 
-            </div>
-            <h2>Kevin Ying</h2>
-            <p>I am a 3rd year undergraduate student pursuing Electrical Engineering at Berkeley, on Muwekma Ohlone Land. I am Chinese-Australian; I like to listen to music, think about things, and hang out with friends.</p>
-            <p>I am interested in IOT and Robotics.</p>
-            <p>B.S. &ensp; EECS &ensp; UC Berkeley 2027</p> 
-        </section>
+    <main class="grid-container">
+        <section class="portfolio-intro-section">
+            <div class="portfolio-text">
+                <!-- <h1>About</h1> -->
+                <div class="profile-img-container">
+                    <img class="profile-img" src="Photos/flowers/IMG_6768.PNG" alt="Profile Photo"> 
+                </div>
+                <h1>Kevin Ying</h1>
+                <p>I am a 3rd year undergraduate student pursuing Electrical Engineering at Berkeley, on Muwekma Ohlone Land. I am Chinese-Australian; I like to listen to music, think about things, and hang out with friends.</p>
+                <p>I am interested in IOT and Robotics.</p>
+                
+                <div class="education-info">
+                    <p>B.S. &ensp; EECS &ensp; UC Berkeley 2027</p>
+                </div>
 
-        <div class="contact-buttons">
-            <a href="https://www.linkedin.com/in/yingk888/" target="_blank">LinkedIn</a>
-            <a href="mailto:yingk@berkeley.edu">Email</a>
-            <a href="tel:+15109773373">Phone</a>
+                <div class="contact-buttons" id="contact">
+                    <a href="https://www.linkedin.com/in/yingk888/" target="_blank">LinkedIn</a>
+                    <a href="mailto:yingk@berkeley.edu">Email</a>
+                    <a href="tel:+15109773373">Phone</a>
+                </div>
+            </div>
+<!-- 
+            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                 alt="Engineering workspace" 
+                 class="portfolio-image"> -->
+        </section>
+    </main>
+
+    <footer>
+        <div class="grid-container">
+            <div class="footer-content">
+                &copy; 2024 Kevin Ying
+            </div>
         </div>
-    </div>
+    </footer>
+
 </body>
-<h1 class="footer">Footer</h1>
 </html>

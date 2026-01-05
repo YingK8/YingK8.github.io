@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TetrisBot | EECS 106A Fall 2025</title>
+    <!-- model-viewer for 3D content -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <style>
+        /* --- CSS Variables --- */
+        :root {
+            --bg-color: #F8F8F8;
+            --text-color: #333333;
+            --card-color: #FFFFFF;
+            --border-color: #E0E0E0;
+            --accent-color: #000000;
+            --grid-max-width: 1200px;
+            --nav-height: 60px;
+            --gap-size: 1.5rem;
+            --text-max-width: 65ch;
+            --highlight-color: #FF3B30;
+        }
+
+        /* --- Reset & Base --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding-top: 0; /* Changed: Navbar is now sticky, so no padding needed */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding-bottom: 2rem;
+            font-size: 0.95rem; 
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        
+        /* Typography overrides to match template */
+        h1 { margin-bottom: 1rem; font-size: 2rem; font-weight: 700; }
+        h2 { margin-bottom: 1rem; font-size: 1.2rem; font-weight: 700; }
+        h3 { margin-bottom: 1rem; font-weight: bold; }
+        p { margin-bottom: 0.8rem; font-size: 0.95rem; }
+
+        /* --- The Modular Grid System --- */
+        .grid-container {
+            width: 100%;
+            max-width: var(--grid-max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--gap-size);
+        }
+
+        /* --- Navbar --- */
+        .navbar-wrapper {
+            position: sticky; /* Changed: Sticky allows dynamic height */
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: var(--nav-height);
+            height: auto;
+            background-color: var(--bg-color);
+            border-bottom: none; /* Changed: Borders handled by links */
+            z-index: 100;
+            display: block;
+        }
+
+        .navbar-inner {
+            width: 100%;
+            max-width: none;
+            padding: 0;
+            height: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap; /* Changed: Allow wrapping */
+            width: 100%;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1 0 20%; /* Changed: Basis 20% forces max 5 per row */
+            min-height: var(--nav-height);
+            transition: background-color 0.2s ease;
+            border-right: 1px solid var(--accent-color);
+            border-bottom: 1px solid var(--accent-color); /* Separator between rows */
+            box-sizing: border-box;
+        }
+        
+        /* Optional: Remove right border from last item if you want edge-to-edge look, 
+           but keeping it consistent with the grid lines is usually better style. */
+
+        .nav-link:hover { background-color: #e0e0e0; }
+
+        /* Semantic headings inside the links */
+        .nav-link h2 {
+            margin: 0;
+            font-weight: inherit;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* --- Main Content Layout --- */
+        main {
+            padding-top: 2rem;
+            flex: 1;
+        }
+
+        /* --- Intro Section --- */
+        .intro-section {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+
+        .intro-text {
+            grid-column: 1 / 7;
+            padding-right: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .intro-text h1,
+        .intro-text p {
+            max-width: var(--text-max-width);
+        }
+
+        .intro-image {
+            grid-column: 7 / -1;
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            object-fit: cover;
+            border: 1px solid var(--accent-color);
+        }
+
+        /* --- Journal Entries --- */
+        .journal-row {
+            grid-column: 1 / -1; 
+            border: 1px solid var(--accent-color);
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            margin-bottom: 1rem; 
+            overflow: hidden; 
+            background: var(--card-color);
+        }
+
+        /* Standard Split Entry (Image Left, Text Right) */
+        .entry-half {
+            grid-column: span 6;
+            position: relative;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .entry-half.with-border-right {
+            border-right: 1px solid var(--accent-color);
+        }
+
+        /* Full Width Entry */
+        .entry-full {
+            grid-column: 1 / -1;
+            position: relative;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        /* Content wrapper for consistent text spacing */
+        .entry-content {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* Metadata (Date/Title) */
+        .meta-title {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-weight: bold;
+            padding: 0.2rem 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .meta-date {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            color: #666;
+            font-style: italic;
+            font-size: 0.85rem;
+        }
+
+        /* Images inside entries */
+        .entry-img-contain {
+            max-width: 100%;
+            max-height: 350px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .entry-img-full {
+            width: 100%;
+            max-height: 600px;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .entry-img-gallery {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Text content styling with max-width */
+        .text-content {
+            padding: 0;
+            max-width: var(--text-max-width);
+            width: 100%;
+        }
+
+        .entry-full .text-content {
+            margin: 0 auto;
+        }
+
+        .entry-half .text-content {
+            margin: 0;
+        }
+
+        .text-content p,
+        .text-content h1,
+        .text-content h2,
+        .text-content h3 {
+            max-width: 100%;
+        }
+
+        /* Image gallery grid */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .image-grid-item {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Team member grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .team-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--accent-color);
+            margin: 0 auto 1rem;
+        }
+
+        /* --- Collapsible Code Block --- */
+        .code-block-wrapper {
+            grid-column: 1 / -1;
+            margin-bottom: 1rem;
+            border: 1px solid var(--accent-color);
+        }
+
+        details.code-block-container {
+            background: #252525;
+            transition: all 0.3s ease;
+        }
+
+        summary {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            color: #f5f5f5;
+            background-color: #000;
+            cursor: pointer;
+            list-style: none;
+            font-weight: bold;
+        }
+
+        /* Custom Arrow */
+        .code-block-container summary::before {
+            content: '';
+            width: 15px;
+            height: 15px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-right: 0.6rem;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .code-block-container summary:hover {
+            background-color: #313131;
+        }
+
+        .code-block-container summary:hover::before {
+            transform: rotate(90deg);
+        }
+
+        .code-block-container[open] summary {
+            background-color: #171717;
+        }
+
+        .code-block-container[open] summary::before {
+            transform: rotate(90deg);
+        }
+
+        .code-block-container .code-block {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            background-color: #1e1e1e;
+        }
+
+        .code-block-container[open] .code-block {
+            max-height: fit-content;
+            padding: 1.5rem;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .code-block {
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            color: #ffffff;
+            overflow-x: auto;
+            tab-size: 4;
+            white-space: pre-wrap;
+            word-break: break-word;
+            margin: 0;
+            max-width: 100%;
+        }
+
+        .code-block code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        /* Code syntax highlighting */
+        .code-block .keyword { color: #569cd6; }
+        .code-block .string { color: #ce9178; }
+        .code-block .comment { color: #6a9955; }
+        .code-block .function { color: #dcdcaa; }
+        .code-block .number { color: #b5cea8; }
+
+        /* --- Footer --- */
+        footer {
+            margin-top: 4rem;
+            padding: 2rem 0;
+        }
+        .footer-content { 
+            grid-column: 1 / -1; 
+            color: #666; 
+            font-size: 0.9rem; 
+            text-align: center;
+            max-width: var(--text-max-width);
+            margin: 0 auto;
+        }
+
+        /* --- Responsiveness --- */
+        @media (max-width: 768px) {
+            .intro-text { 
+                grid-column: 1 / -1; 
+                margin-bottom: 1rem; 
+                padding-right: 0;
+            }
+            
+            .intro-text h1,
+            .intro-text p {
+                max-width: 100%;
+            }
+            
+            .intro-image { 
+                grid-column: 1 / -1; 
+                min-height: 250px; 
+            }
+
+            .entry-half {
+                grid-column: 1 / -1;
+                border-right: none;
+                border-bottom: 1px solid var(--accent-color);
+                min-height: auto;
+                padding: 4rem 1.5rem 2rem 1.5rem;
+            }
+            
+            .entry-full {
+                min-height: auto;
+                padding: 4rem 1.5rem 2rem 1.5rem;
+            }
+            
+            .entry-half:last-child { 
+                border-bottom: none; 
+            }
+            
+            .entry-img-contain,
+            .entry-img-full {
+                max-height: 300px;
+            }
+            
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            :root {
+                --text-max-width: 100%;
+            }
+            
+            .entry-full .text-content {
+                margin: 0;
+            }
+            
+            /* Navbar font adjustment for small screens */
+            .nav-link h2 {
+                font-size: 0.75rem; 
+            }
+        }
+
+        @media (min-width: 1400px) {
+            :root {
+                --text-max-width: 70ch;
+            }
+        }
+
+        /* --- Project Specific Styles (Ported) --- */
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+            width: 100%;
+        }
+        
+        .stat-card {
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            text-align: center;
+            background: var(--bg-color);
+        }
+        
+        .stat-value {
+            display: block;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #666;
+        }
+
+        /* Buttons */
+        .btn-group {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background: var(--accent-color);
+            color: var(--card-color);
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: var(--accent-color);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--accent-color);
+        }
+        
+        .btn-outline:hover {
+            background: var(--accent-color);
+            color: var(--card-color);
+        }
+
+        /* Model Viewer */
+        model-viewer {
+            width: 100%;
+            height: 300px;
+            background-color: var(--bg-color);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-wrapper">
+        <div class="navbar-inner">
+            <div class="nav-links">
+                <a href="index.html" class="nav-link"><h2>Work</h2></a>
+                <a href="about.html" class="nav-link"><h2>About</h2></a>
+                <!-- <a href="#overview" class="nav-link"><h2>Overview</h2></a>
+                <a href="#design" class="nav-link"><h2>Design</h2></a>
+                <a href="#hardware" class="nav-link"><h2>Hardware</h2></a>
+                <a href="#perception" class="nav-link"><h2>Perception</h2></a>
+                <a href="#planning" class="nav-link"><h2>Planning</h2></a>
+                <a href="#results" class="nav-link"><h2>Results</h2></a>
+                <a href="#gallery" class="nav-link"><h2>Gallery</h2></a> -->
+            </div>
+        </div>
+    </nav>
+
+    <main class="grid-container">
+
+        <!-- Header / Intro -->
+        <section class="intro-section" id="overview">
+            <div class="intro-text">
+                <h1>Autonomous Tetris-Playing Robot Manipulator</h1>
+                <p>Fall 2025 • EECS 106A • UC Berkeley</p>
+                <p>TetrisBot is an integrated robotic system capable of perceiving, planning, and manipulating tetromino-shaped blocks to play physical Tetris autonomously. The system leverages computer vision for state estimation, Deep Reinforcement Learning for placement strategy, and motion planning for execution.</p>
+                
+                <div class="btn-group">
+                    <a href="#results" class="btn btn-outline">Watch Demo</a>
+                    <a href="https://github.com/jesuisunananas/EECS106A_TetrisBot" class="btn btn-outline">Source Code</a>
+                </div>
+            </div>
+            <!-- Using stacking.png as Hero Image -->
+            <img src="stacking.png" alt="TetrisBot System" class="intro-image">
+        </section>
+
+        <!-- Entry 1: Design -->
+        <article class="journal-row" id="design">
+            <div class="entry-half with-border-right">
+                <div class="meta-title">Design Criteria</div>
+                <div class="entry-content">
+                    <img src="object-stacking.png" alt="RL simulation output" class="entry-img-gallery">
+                    <div class="text-content">
+                        <p>Our system needed to reliably detect multiple objects in the workspace, compute space-efficient packing arrangements respecting stability constraints (>50% support), and execute collision-free trajectories to precisely place objects.</p>
+                        <p>Key requirements included real-time perception, stable grasping, and efficient packing algorithms.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="entry-half">
+                <div class="meta-title">Design Choices</div>
+                <div class="meta-date">October 2025</div>
+                <div class="entry-content">
+                    <div class="text-content">
+                        <h3>ArUco Markers</h3>
+                        <p>Chose marker-based tracking over deep learning detection for reliability and precise 6-DoF pose estimation.</p>
+                        
+                        <h3>Internal Grasping</h3>
+                        <p>Designed custom hollow boxes allowing the gripper to grasp from inside, eliminating external offset errors.</p>
+                        
+                        <h3>Decoupled Planning</h3>
+                        <p>Separated packing order (learned via RL) from placement positions (height-map heuristic) for tractability.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Entry 2: Hardware -->
+        <article class="journal-row" id="hardware">
+            <div class="entry-half with-border-right">
+                <div class="meta-title">Hardware Setup</div>
+                <div class="entry-content">
+                    <img src="multi_marker.png" alt="Multi-object detection setup" class="entry-img-gallery">
+                    <div class="text-content">
+                        <h3>Robot Arm</h3>
+                        <p>Universal Robots UR5e/UR7e 6-DOF collaborative robot arm with Robotiq parallel gripper.</p>
+                        
+                        <h3>Vision System</h3>
+                        <p>Intel RealSense D435i RGB-D camera mounted above the workspace for ArUco marker detection.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="entry-half">
+                <div class="meta-title">Custom Components</div>
+                <div class="entry-content">
+                    <img src="collision_objects.png" alt="Collision box tracking" class="entry-img-gallery">
+                    <div class="text-content">
+                        <h3>3D-Printed Cubes</h3>
+                        <p>Hollow cubes with ArUco markers on top surfaces. Internal handles enable consistent manipulation.</p>
+                        
+                        <h3>Software Stack</h3>
+                        <p>ROS Noetic on Ubuntu 20.04. MoveIt for motion planning, OpenCV for vision processing.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Entry 3: Perception System -->
+        <article class="journal-row" id="perception">
+            <div class="entry-full">
+                <div class="meta-title">Perception System</div>
+                <div class="meta-date">Computer Vision Pipeline</div>
+                <div class="entry-content">
+                    <div class="image-grid">
+                        <img src="multi_marker.png" alt="Multi-marker detection" class="image-grid-item">
+                        <img src="aruco_detection.png" alt="ArUco detection in action" class="image-grid-item">
+                    </div>
+                    <div class="text-content">
+                        <h3>ArUco Detection Node</h3>
+                        <p>Uses OpenCV's cv2.aruco module to detect markers through an RGB camera, organizes into different marker sizes based on ID, and calculates the 3D pose relative to the camera.</p>
+                        
+                        <h3>AR Tag Identification</h3>
+                        <p>Retrieves object information for each marker ID, computes centre offsets, transforms them to robot's base link frame, and publishes the organized data.</p>
+                        
+                        <h3>Custom Messages</h3>
+                        <p>BoxInfo.msg and BinInfo.msg store object dimensions, IDs, and base_link poses for downstream planning nodes.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Entry 4: Planning & RL -->
+        <article class="journal-row" id="planning">
+            <div class="entry-half with-border-right">
+                <div class="meta-title">Reinforcement Learning</div>
+                <div class="entry-content">
+                    <img src="rl_training.png" alt="RL training visualization" class="entry-img-gallery">
+                    <div class="text-content">
+                        <h3>RL Policy Network</h3>
+                        <p>Deep reinforcement learning planner (DQN/PPO) that learns optimal block placements from grid occupancy and piece geometry.</p>
+                        
+                        <h3>Reward Structure</h3>
+                        <p>Maximizes space utilization while minimizing height and holes. Balances line clears, height penalties, and stability bonuses.</p>
+                        
+                        <h3>Sim-to-Real Transfer</h3>
+                        <p>Policy trained in randomized physics simulation, transferred to hardware using domain randomization.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="entry-half">
+                <div class="meta-title">Motion Planning</div>
+                <div class="entry-content">
+                    <img src="collision_objects/collisionObj1.png" alt="Collision objects in RViz" class="entry-img-gallery">
+                    <div class="text-content">
+                        <h3>MoveIt Integration</h3>
+                        <p>MoveIt handles IK trajectory planning with custom pose IK planner. Collision boxes in the planning scene ensure safe execution with velocity and acceleration constraints.</p>
+                        
+                        <h3>Grasp Planning</h3>
+                        <p>5-step pick-and-place sequence: 1) Pre-grasp, 2) Grasp, 3) Orientate, 4) Place, 5) Home.</p>
+                        
+                        <h3>Collision Avoidance</h3>
+                        <p>Dynamic collision objects prevent the arm from hitting previously placed boxes or workspace boundaries.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Entry 5: Results & Demo -->
+        <article class="journal-row" id="results">
+            <div class="entry-full">
+                <div class="meta-title">Results & Demonstration</div>
+                <div class="meta-date">November 2025</div>
+                <div class="entry-content">
+                    <img src="stacking.png" alt="Final stacked configuration" class="entry-img-full">
+                    <div class="text-content">
+                        <h3>Success Metrics</h3>
+                        <p><strong>✓ Multi-Object Detection:</strong> Successfully detected and tracked 4+ boxes simultaneously with real-time pose updates.</p>
+                        <p><strong>✓ Optimal Ordering:</strong> RL policy computed packing sequences respecting stability and access priority constraints.</p>
+                        <p><strong>✓ Collision-Free Motion:</strong> Generated safe trajectories avoiding workspace obstacles.</p>
+                        <p><strong>✓ Precise Stacking:</strong> Achieved tight 3D packing configurations matching simulation predictions.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Entry 6: Gallery -->
+        <article class="journal-row" id="gallery">
+            <div class="entry-full">
+                <div class="meta-title">Project Gallery</div>
+                <div class="meta-date">Visual Documentation</div>
+                <div class="entry-content">
+                    <div class="image-grid">
+                        <img src="collision_objects/collisionObj2.png" alt="RViz collision objects" class="image-grid-item">
+                        <img src="grasping.png" alt="Grasping sequence diagram" class="image-grid-item">
+                        <img src="workspace_setup.jpg" alt="Workspace setup" class="image-grid-item">
+                        <img src="robot_operation.jpg" alt="Robot in operation" class="image-grid-item">
+                    </div>
+                    <div class="text-content">
+                        <p>Documentation of the system setup, testing phases, and final implementation. Screenshots show RViz visualizations, grasp planning diagrams, and physical hardware configurations.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Code Blocks -->
+        <div class="code-block-wrapper">
+            <details class="code-block-container">
+                <summary>ar_tag_identify.py - Core perception loop</summary>
+                <div class="code-block"><code><span class="keyword">def</span> <span class="function">process_markers</span>(marker_ids, poses):
+    boxes, bin = [], <span class="keyword">None</span>
+    <span class="keyword">for</span> id, pose <span class="keyword">in</span> zip(marker_ids, poses):
+        center = compute_center(pose)
+        base_pose = transform_to_base(center)
+        <span class="keyword">if</span> id == BIN_ID:
+            bin = BinInfo(id=id, pose=base_pose)
+        <span class="keyword">else</span>:
+            boxes.append(BoxInfo(id=id, pose=base_pose))
+    publish_scene(boxes, bin)</code></div>
+            </details>
+        </div>
+
+        <div class="code-block-wrapper">
+            <details class="code-block-container">
+                <summary>planning.main - Pick and place execution</summary>
+                <div class="code-block"><code><span class="keyword">def</span> <span class="function">execute_packing</span>(box_queue, bin_pose):
+    <span class="keyword">for</span> box <span class="keyword">in</span> box_queue:
+        target = rl_policy.get_placement(box)
+        
+        <span class="comment"># Pick from table</span>
+        move_to_pregrasp(box.pose)
+        lower_and_grasp(box)
+        
+        <span class="comment"># Place in bin</span>
+        orientate_gripper(target.rotation)
+        move_to_placement(bin_pose + target.offset)
+        release_box()
+        
+        return_home()</code></div>
+            </details>
+        </div>
+
+        <!-- Entry 8: Materials -->
+        <article class="journal-row" id="materials">
+            <div class="entry-full">
+                <div class="meta-title">Additional Materials</div>
+                <div class="meta-date">Resources & Documentation</div>
+                <div class="entry-content">
+                    <div class="text-content">
+                        <h3>Source Code</h3>
+                        <p><a href="https://github.com/jesuisunananas/EECS106A_TetrisBot/tree/main">GitHub Repository</a> — Complete ROS nodes, RL training code, and perception pipeline.</p>
+                        
+                        <h3>CAD Models</h3>
+                        <p>STL files for 3D-printed boxes and collision meshes available in the repository.</p>
+                        
+                        <h3>Documentation</h3>
+                        <p>Comprehensive README files, installation guides, and troubleshooting documentation.</p>
+                        
+                        <h3>Reference Papers</h3>
+                        <p><a href="https://doi.org/10.1109/LRA.2025.3534070">Wang et al., IEEE RA-L 2025</a> — Bin Packing via Deep RL</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+    <footer>
+        <div class="grid-container">
+            <div class="footer-content">
+                TetrisBot • EECS 106A: Introduction to Robotics • Fall 2025 • UC Berkeley
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

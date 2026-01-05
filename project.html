@@ -3,10 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Journal</title>
-    
+    <title>Kevin Ying - Project Journal</title>
     <style>
-        /* ====== Base Styles ====== */
+        /* --- CSS Variables --- */
+        :root {
+            --bg-color: #F8F8F8;
+            --text-color: #333333;
+            --card-color: #FFFFFF;
+            --border-color: #E0E0E0;
+            --accent-color: #000000;
+            --grid-max-width: 1200px;
+            --nav-height: 60px;
+            --gap-size: 1.5rem; /* 增加呼吸感 */
+            --text-max-width: 65ch;
+        }
+
+        /* --- Reset & Base --- */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -14,121 +26,259 @@
         }
         
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f5f5f5;
-            padding-top: 60px; /* Space for fixed navbar */
-            max-width: 1200px;
+            font-family: 'Courier New';
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding-top: var(--nav-height);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding-bottom: 2rem;
+            font-size: 0.95rem; 
+        }
+
+        a { text-decoration: none; color: inherit; }
+        h1 { margin-bottom: 1rem; font-size: 2rem;}
+        h2 { margin-bottom: 1rem; font-size: 1.2rem;}
+        h3 { margin-bottom: 1rem; font-weight: bold;}
+        p { margin-bottom: 0.8rem; font-size: 0.95rem; }
+
+        /* --- The Modular Grid System --- */
+        .grid-container {
+            width: 100%;
+            max-width: var(--grid-max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--gap-size);
+        }
+
+        /* --- Navbar --- */
+        .navbar-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--accent-color);
+            z-index: 100;
+            display: block; /* changed: allow inner to fill full width */
+        }
+
+        .navbar-inner {
+            width: 100%;
+            max-width: none; /* changed: allow full-bleed navbar */
+            padding: 0;       /* changed: remove side padding */
+            height: 100%;
+        }
+
+        .nav-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 100%;
+            width: 100%;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* font-weight: bold;  -- optional: heading will carry weight */
+            height: 100%;
+            width: 100%;
+            transition: background-color 0.2s ease;
+            /*font-size: 1.2rem; /* changed: match h2 font-size */
+            /*line-height: 1; */
+        }
+        
+        .nav-link:first-child { 
+            border-right: 1px solid var(--accent-color); 
+        }
+
+        .nav-link:hover { background-color: #e0e0e0; }
+
+        /* Optional: if you prefer semantic headings inside the links */
+        .nav-link h2 {
+            margin: 0;
+            font-weight: inherit;
+        }
+
+        /* --- Main Content Layout --- */
+        main {
+            padding-top: 2rem;
+            flex: 1;
+        }
+
+        /* --- Intro Section --- */
+        .intro-section {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+
+        .intro-text {
+            grid-column: 1 / 7;
+            padding-right: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Added max-width for intro text */
+        .intro-text h1,
+        .intro-text p {
+            max-width: var(--text-max-width);
+        }
+
+        .intro-image {
+            grid-column: 7 / -1;
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            object-fit: cover;
+            border: 1px solid var(--accent-color);
+        }
+
+        /* --- Journal Entries --- */
+        .journal-row {
+            grid-column: 1 / -1; 
+            border: 1px solid var(--accent-color);
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            margin-bottom: 1rem; 
+            overflow: hidden; 
+            background: var(--card-color);
+        }
+
+        /* Standard Split Entry (Image Left, Text Right) */
+        .entry-half {
+            grid-column: span 6;
+            position: relative;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .entry-half.with-border-right {
+            border-right: 1px solid var(--accent-color);
+        }
+
+        /* Full Width Entry */
+        .entry-full {
+            grid-column: 1 / -1;
+            position: relative;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        /* Content wrapper for consistent text spacing */
+        .entry-content {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* Metadata (Date/Title) */
+        .meta-title {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-weight: bold;
+            /* background: #000;  */
+            /* color: #fff;  */
+            padding: 0.2rem 0.5rem;
+        }
+
+        .meta-date {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Images inside entries */
+        .entry-img-contain {
+            max-width: 100%;
+            max-height: 350px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .entry-img-full {
+            width: 100%;
+            max-height: 600px;
+            height: auto;
+            object-fit: contain;
+            display: block;
             margin: 0 auto;
         }
 
-        h2 {
-            margin-bottom: 1rem;
-        }
-
-        h1 {
-            text-align: left;
-            color: #2c3e50;
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-        }
-
-        p {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer {
-            position: relative; /* or sticky */
-            margin-top: 3rem;
+        /* Text content styling with max-width */
+        .text-content {
             padding: 0;
-            bottom: 0px;
-        }
-
-        /* ====== Navigation ====== */
-        .navbar {
-            background-color: #f5f5f5;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            position: fixed;
-            top: 0;
+            max-width: var(--text-max-width);
             width: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 5;
-            border-bottom: 1px solid #000;
-        }
-        
-        .navbar a {
-            color: rgb(0, 0, 0);
-            text-align: center;
-            padding: 15px 0;
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .navbar a:not(:last-child) {
-            border-right: 1px solid #000;
-        }
-        
-        .navbar a:hover {
-            background-color: #ddd;
+        /* For text-only full entries - center the text content */
+        .entry-full .text-content {
+            margin: 0 auto;
         }
 
-
-        /* ====== Journal Container ====== */
-        .journal-container {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        /* ====== Journal Entry Styles ====== */
-        .journal-entry {
-            display: flex;
-            flex-direction: column;
-            border: 1px solid #000;
-            background-color: none;
-            position: relative;
-            margin-bottom: 1rem; /* Added spacing between entries */
-        }
-
-        .journal-intro {
-            display: flex;
-            flex-direction: column;
-            border: none;
-            background-color: none;
-            position: relative;
-            margin-bottom: 1rem; /* Added spacing between entries */
-        }
-
-        /* ====== Collapsible Code Block ====== */
-        .code-block-container {
-            position: relative;
+        /* For text in half entries - align to start (left) */
+        .entry-half .text-content {
             margin: 0;
+        }
+
+        /* Text elements with max-width */
+        .text-content p,
+        .text-content h1,
+        .text-content h2,
+        .text-content h3 {
+            max-width: 100%;
+        }
+
+        /* --- Collapsible Code Block --- */
+        .code-block-wrapper {
+            grid-column: 1 / -1;
+            margin-bottom: 1rem;
+            border: 1px solid var(--accent-color);
+        }
+
+        details.code-block-container {
             background: #252525;
-            overflow: hidden;
             transition: all 0.3s ease;
         }
 
-        /* Summary/Header Styles */
-        .code-block-container summary {
+        summary {
             display: flex;
             align-items: center;
-            padding: 0.5rem 0.5rem;
+            padding: 0.5rem;
             color: #f5f5f5;
             background-color: #000;
             cursor: pointer;
             list-style: none;
-            font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: bold;
         }
 
-        /* Custom Arrow Icon */
+        /* Custom Arrow */
         .code-block-container summary::before {
             content: '';
-            width: 18px;
-            height: 18px;
+            width: 15px;
+            height: 15px;
             background-image: url("./icons/collapse-arrow.svg");
             background-size: contain;
             background-repeat: no-repeat;
@@ -164,8 +314,8 @@
         }
 
         .code-block-container[open] .code-block {
-            max-height:fit-content;
-            padding: 1rem;
+            max-height: fit-content;
+            padding: 1.5rem;
         }
 
         /* Hide default marker */
@@ -173,231 +323,189 @@
             display: none;
         }
 
-        /* Code Block Styling */
+        /* Code Block Styling - WHITE TEXT OVERRIDE */
         .code-block {
             font-family: 'Fira Code', 'Courier New', monospace;
             line-height: 1.6;
-            color: #f0f0f0;
+            color: #ffffff; /* Pure White Text */
             overflow-x: auto;
             tab-size: 4;
             white-space: pre-wrap;
             word-break: break-word;
             margin: 0;
+            max-width: 100%;
         }
 
-        /* ====== Entry Content Sections ====== */
-        .entry-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 10% 13% 10%;
-            border-top: none;
-            position: relative;
+        /* Ensure no highlight background on the code tag */
+        .code-block code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
         }
 
-        .intro-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 3% 5% 2% 0rem; /* Left padding set to 1rem */
-            border-bottom: none;
-            position: relative;
+        /* Code syntax highlighting */
+        .code-block .keyword { color: #569cd6; }
+        .code-block .string { color: #ce9178; }
+        .code-block .comment { color: #6a9955; }
+        .code-block .function { color: #dcdcaa; }
+        .code-block .number { color: #b5cea8; }
+
+        /* --- Footer --- */
+        footer {
+            margin-top: 4rem;
+            padding: 2rem 0;
+        }
+        .footer-content { 
+            grid-column: 1 / -1; 
+            color: #666; 
+            font-size: 0.9rem; 
+            text-align: center;
+            max-width: var(--text-max-width);
+            margin: 0 auto;
         }
 
-        .entry-content-full {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 13% 13% 10%;
-            border-top: none;
-            position: relative;
-        }
-
-        
-        .entry-image {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 1rem;
-            background-color: none;
-        }
-        
-        .entry-image img {
-            width: 80%;
-            height: auto;
-            object-fit: contain;
-        }
-
-        .intro-image {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0rem;
-            background-color: none;
-        }
-
-        .intro-image img {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-        }
-
-        .entry-image-full img {
-            height: 100%;
-            padding: 1rem 1rem 1.8rem;
-            padding-top: 2.3rem;
-        }
-
-
-        /* ====== Entry Metadata ====== */
-        .entry-date {
-            position: absolute;
-            bottom: 0.5rem;
-            left: 0.5rem;
-            color: #000;
-        }
-
-        .entry-title {
-            position: absolute;
-            top: 0.5rem;
-            left: 0.5rem;
-            color: #000;
-        }
-
-
-        /* ====== Desktop Layout ====== */
-        @media (min-width: 768px) {
-            .journal-entry {
-                flex-direction: row;
-                min-height: 50vh;
-            }
-
-            .journal-intro {
-                flex-direction: row;
-                min-height: 50vh;
-            }
-
-            .entry-content {
-                width: 50%;
-                border-left: none;
-                border-top: none;
-                padding: 5%;
-            }
-
-            .intro-content {
-                width: 50%;
-                padding: 5% 5% 5% 0rem; /* Left padding set to 1rem */
-                margin-right: 0;
-            }
-
-            .intro-image {
-                width: 50%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding: 1rem;
+        /* --- Responsiveness --- */
+        @media (max-width: 768px) {
+            .intro-text { 
+                grid-column: 1 / -1; 
+                margin-bottom: 1rem; 
                 padding-right: 0;
-                padding-bottom: 0;
-            }
-
-            .intro-image img {
-                width: 100%;
-                height: auto;
-                object-fit: contain;
-            }
-
-            .entry-image {
-                width: 50%;
-                padding: 0.5rem;
             }
             
-            .entry-image img {
-                max-height: 100%;
+            .intro-text h1,
+            .intro-text p {
                 max-width: 100%;
-                width: auto;
-                height: auto;
+            }
+            
+            .intro-image { 
+                grid-column: 1 / -1; 
+                min-height: 250px; 
             }
 
-            .entry-image-full {
-                width: 100%;
-                padding: 2.4rem 2.4rem 1.2rem;
-                padding-top: 1rem;
+            .entry-half {
+                grid-column: 1 / -1;
+                border-right: none;
+                border-bottom: 1px solid var(--accent-color);
+                min-height: auto;
+                padding: 4rem 1.5rem 2rem 1.5rem;
+            }
+            
+            .entry-full {
+                min-height: auto;
+                padding: 4rem 1.5rem 2rem 1.5rem;
+            }
+            
+            .entry-half:last-child { 
+                border-bottom: none; 
+            }
+            
+            .entry-img-contain,
+            .entry-img-full {
+                max-height: 300px;
+            }
+            
+            /* Adjust text max-width for mobile */
+            :root {
+                --text-max-width: 100%;
+            }
+            
+            .entry-full .text-content {
+                margin: 0;
+            }
+        }
+
+        /* Optional: For very large screens, you might want to increase the max-width */
+        @media (min-width: 1400px) {
+            :root {
+                --text-max-width: 70ch;
             }
         }
     </style>
 </head>
-
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <a href="#work">Work</a>
-        <a href="#contact">Contact</a>
+
+    <nav class="navbar-wrapper">
+        <div class="navbar-inner">
+            <div class="nav-links">
+                <a href="./index.html" class="nav-link"><h2>Work</h2></a>
+                <a href="./about.html" class="nav-link"><h2>Contact</h2></a>
+            </div>
+        </div>
     </nav>
 
-    <!-- project introduction -->
-    <div class="journal-container">
-        <div class="journal-intro">
-            <div class="intro-content">
+    <main class="grid-container">
+
+        <section class="intro-section">
+            <div class="intro-text">
                 <h1>Project 1</h1>
                 <p>Today we initiated the new project with the client meeting. Established core requirements and success metrics. The team is excited to begin prototyping next week after we complete the initial research phase.</p>
                 <p>Key challenges identified include integration with legacy systems and meeting the tight deadline for the first prototype.</p>
             </div>
+            <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12" alt="Whiteboard" class="intro-image">
+        </section>
 
-            <div class="intro-image">
-                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c" alt="Team meeting">
+        <article class="journal-row">
+            
+            <div class="entry-half with-border-right">
+                <div class="meta-title">Visual Reference</div>
+                <div class="entry-content">
+                    <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12" alt="Whiteboard" class="entry-img-contain">
+                </div>
             </div>
+
+            <div class="entry-half">
+                <div class="meta-title">Project Kickoff</div>
+                <div class="meta-date">May 15, 2023</div>
+                <div class="entry-content">
+                    <div class="text-content">
+                        <p>Goodbye.</p>
+                        <p>The team is excited to begin prototyping next week after we complete the initial research phase. Key challenges identified include integration with legacy systems.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="journal-row">
+            <div class="entry-full">
+                <div class="meta-title">Whiteboard Session</div>
+                <div class="meta-date">May 16, 2023</div>
+                <div class="entry-content">
+                    <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12" alt="Whiteboard" class="entry-img-full">
+                </div>
+            </div>
+        </article>
+
+        <article class="journal-row">
+            <div class="entry-full">
+                <div class="meta-title">Research Notes</div>
+                <div class="meta-date">May 17, 2023</div>
+                <div class="entry-content">
+                    <div class="text-content">
+                        <p>hello.</p>
+                        <p>Action items: Update the Figma files to prioritize mobile-first views and schedule a review with the engineering lead.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <div class="code-block-wrapper">
+            <details class="code-block-container">
+                <summary>view_controller.py</summary>
+                <div class="code-block"><code>/* CalSol - UC Berkeley Solar Vehicle Team
+ * can_communication.h - Gen11</code></div>
+            </details>
         </div>
 
-    <!-- Journal Entries -->
-    <div class="journal-container">
-        <!-- Entry with image and text -->
-        <div class="journal-entry">
-            <div class="entry-image">
-                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c" alt="Team meeting">
-            </div>
-            <div class="entry-content">
-                <div class="entry-title">Project Kickoff</div>
-                <p>Today we initiated the new project with the client meeting. Established core requirements and success metrics. The team is excited to begin prototyping next week after we complete the initial research phase.</p>
-                <p>Key challenges identified include integration with legacy systems and meeting the tight deadline for the first prototype.</p>
-                <div class="entry-date">May 15, 2023</div>
-            </div>
-        </div>
-        
-        <!-- Image-only entry -->
-        <div class="journal-entry">
-            <div class="entry-image-full">
-                <div class="entry-title">Project Kickoff</div>
-                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c" alt="Team meeting">
-                <div class="entry-date">May 15, 2023</div>
-            </div>
-        </div>
+    </main>
 
-        <!-- Text-only entry -->
-        <div class="journal-entry">
-            <div class="entry-content-full">
-                <div class="entry-title">Project Kickoff</div>
-                <p>Today we initiated the new project with the client meeting. Established core requirements and success metrics. The team is excited to begin prototyping next week after we complete the initial research phase.</p>
-                <p>Key challenges identified include integration with legacy systems and meeting the tight deadline for the first prototype.</p>
-                <div class="entry-date">May 15, 2023</div>
+    <footer>
+        <div class="grid-container">
+            <div class="footer-content">
+                footer.
+                <!-- &copy; 2024 Kevin Ying. All Rights Reserved. -->
             </div>
         </div>
+    </footer>
 
-        <!-- code entry -->
-        <details class="code-block-container">
-            <summary>Code</summary>
-            <div class="code-block">
-                <code>
-def hello_world():
-    print("Hello, world!")
-                </code>
-            </div>
-        </details>
-    </div>
 </body>
-<h1 class="footer">Footer</h1>
 </html>
