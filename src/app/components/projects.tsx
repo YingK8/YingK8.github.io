@@ -1,10 +1,31 @@
 import { motion } from 'motion/react';
+import { useEffect, useRef, useState } from 'react';
 
 interface ProjectsProps {
   isActive: boolean;
 }
 
 export function Projects({ isActive }: ProjectsProps) {
+  const [isInView, setIsInView] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   const projects = [
     { name: 'project 01', desc: 'e-commerce platform', status: '90%' },
     { name: 'project 02', desc: 'mobile app design', status: '70%' },
@@ -13,8 +34,9 @@ export function Projects({ isActive }: ProjectsProps) {
 
   return (
     <motion.section
-      initial={{ opacity: 0.5, y: 20 }}
-      animate={{ opacity: isActive ? 1 : 0.3, y: 0 }}
+      ref={sectionRef}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: isActive ? 1 : 0.6, y: 0 }}
       transition={{ duration: 0.4, delay: 0.05 }}
     >
       <h2 className="text-sm mb-8 uppercase text-black">
@@ -25,9 +47,9 @@ export function Projects({ isActive }: ProjectsProps) {
         {projects.map((project, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0.5, x: 20 }}
+            initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: isActive ? index * 0.075 : 0, duration: 0.3 }}
+            transition={{ delay: (isActive || isInView) ? index * 0.075 : 0, duration: 0.3 }}
             whileHover={{ x: 5, transition: { duration: 0.15 } }}
             className="cursor-pointer"
           >
@@ -41,10 +63,10 @@ export function Projects({ isActive }: ProjectsProps) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: isActive ? 0.4 : 0, duration: 0.3 }}
+        transition={{ delay: (isActive || isInView) ? 0.4 : 0, duration: 0.3 }}
         className="mt-8"
       >
-        <button className="text-xs text-black hover:bg-black hover:text-white transition-all duration-100 px-2">
+        <button className="text-xs text-black hover:bg-black hover:text-white transition-all duration-200 px-2">
           view all projects
         </button>
       </motion.div>

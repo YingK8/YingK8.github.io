@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface ContactsProps {
   isActive: boolean;
@@ -7,6 +7,25 @@ interface ContactsProps {
 
 export function Contacts({ isActive }: ContactsProps) {
   const [hoveredContact, setHoveredContact] = useState<string | null>(null);
+  const [isInView, setIsInView] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
   
   const contacts = [
     { label: 'email', value: 'hello@yourname.dev', link: 'mailto:hello@yourname.dev' },
@@ -17,8 +36,9 @@ export function Contacts({ isActive }: ContactsProps) {
 
   return (
     <motion.section
+      ref={sectionRef}
       initial={{ opacity: 0.5, y: 20 }}
-      animate={{ opacity: isActive ? 1 : 0.3, y: 0 }}
+      animate={{ opacity: isActive ? 1 : 0.6, y: 0 }}
       transition={{ duration: 0.4, delay: 0.15 }}
     >
       <h2 className="text-sm mb-8 uppercase text-black">
@@ -32,18 +52,18 @@ export function Contacts({ isActive }: ContactsProps) {
             href={contact.link}
             initial={{ opacity: 0.5, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: isActive ? index * 0.05 : 0, duration: 0.3 }}
+            transition={{ delay: (isActive || isInView) ? index * 0.05 : 0, duration: 0.3 }}
             onMouseEnter={() => setHoveredContact(contact.label)}
             onMouseLeave={() => setHoveredContact(null)}
-            className="block hover:bg-black transition-all duration-100 px-2 py-1 group"
+            className="block transition-all duration-100 px-2 py-1 group"
           >
             <motion.div
               initial={{ y: 0 }}
               animate={{ y: hoveredContact === contact.label ? -3 : 0 }}
               transition={{ duration: 0.2 }}
             >
-              <p className="text-xs text-black group-hover:text-white transition-colors duration-100">{contact.label}</p>
-              <p className="text-xs text-gray-700 group-hover:text-white break-all transition-colors duration-100">{contact.value}</p>
+              <p className="text-xs text-black transition-colors duration-100">{contact.label}</p>
+              <p className="text-xs text-gray-700 break-all transition-colors duration-100">{contact.value}</p>
             </motion.div>
           </motion.a>
         ))}
