@@ -28,21 +28,20 @@ export function Contacts({ isActive }: ContactsProps) {
   }, []);
   
   const contacts = [
-    { label: 'email', value: 'hello@yourname.dev', link: 'mailto:hello@yourname.dev' },
-    { label: 'github', value: 'github.com/yourname', link: 'https://github.com' },
-    { label: 'twitter', value: '@yourname', link: 'https://twitter.com' },
-    { label: 'linkedin', value: 'linkedin.com/in/yourname', link: 'https://linkedin.com' },
+    { label: 'email', value: 'yingk@berkeley.edu', link: 'mailto:yingk@berkeley.edu' },
+    { label: 'github', value: '@yingk8', link: 'https://github.com/YingK8' },
+    { label: 'linkedin', value: 'yingk888', link: 'https://www.linkedin.com/in/yingk888/' },
   ];
 
   return (
     <motion.section
       ref={sectionRef}
       initial={{ opacity: 0.5, y: 20 }}
-      animate={{ opacity: isActive ? 1 : 0.6, y: 0 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.15 }}
     >
-      <h2 className="text-sm mb-8 uppercase text-black">
-        contact
+      <h2 className={`text-sm mb-8 uppercase text-black transition-all duration-200 ${isActive ? 'font-bold' : 'font-normal'}`}>
+        {isActive && '> '}contact
       </h2>
       
       <div className="space-y-3">
@@ -55,7 +54,7 @@ export function Contacts({ isActive }: ContactsProps) {
             transition={{ delay: (isActive || isInView) ? index * 0.05 : 0, duration: 0.3 }}
             onMouseEnter={() => setHoveredContact(contact.label)}
             onMouseLeave={() => setHoveredContact(null)}
-            className="block transition-all duration-100 px-2 py-1 group"
+            className="block transition-all duration-100 px-2 py-1"
           >
             <motion.div
               initial={{ y: 0 }}

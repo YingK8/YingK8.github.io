@@ -27,27 +27,26 @@ export function About({ isActive }: AboutProps) {
   }, []);
 
   const lines = [
-    'initializing...',
-    'loading profile...',
-    '',
-    'hi, i\'m a creative developer',
+    '""""',
+    'hi, i\'m a creative engineer,',
     'passionate about building',
-    'beautiful digital experiences.',
+    'beautiful things.',
     '',
-    'i specialize in web development,',
-    'user interface design, and',
-    'minimalist aesthetics.',
+    'i specialize in robotics,',
+    'graphics, industrial design',
+    'and bikes.',
+    '""""',
   ];
 
   return (
     <motion.section
       ref={sectionRef}
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: isActive ? 1 : 0.6, y: 0 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
-      <h2 className="text-sm mb-8 uppercase text-black">
-        about
+      <h2 className={`text-sm mb-8 uppercase text-black transition-all duration-200 ${isActive ? 'font-bold' : 'font-normal'}`}>
+        {isActive && '> '}about
       </h2>
       
       <div className="space-y-1">

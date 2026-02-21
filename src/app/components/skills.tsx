@@ -36,19 +36,19 @@ export function Skills({ isActive }: SkillsProps) {
     <motion.section
       ref={sectionRef}
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: isActive ? 1 : 0.6, y: 0 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.1 }}
     >
-      <h2 className="text-sm mb-8 uppercase text-black">
-        skills
+      <h2 className={`text-sm mb-8 uppercase text-black transition-all duration-200 ${isActive ? 'font-bold' : 'font-normal'}`}>
+        {isActive && '> '}skills
       </h2>
       
       <div className="space-y-6">
         {skills.map((skill, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: (isActive || isInView) ? index * 0.1 : 0, duration: 0.3 }}
           >
             <p className="text-xs mb-2 text-black">
