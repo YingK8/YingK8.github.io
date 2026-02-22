@@ -74,7 +74,7 @@ const projectData = {
             },
             {
               type: 'video',
-              url: 'media/tetrisbot_demo.mp4',
+              url: 'media/videos/demo.mp4',
               caption: 'ur7e tetrisbot full system demonstration',
             },
           ],
@@ -100,8 +100,8 @@ const projectData = {
               ],
             },
             {
-              type: 'video',
-              url: 'media/cv_demo.mp4',
+              type: 'image',
+              url: 'media/images/collision_objects.png',
               caption: 'aruco marker pose estimation',
             },
           ],
@@ -124,8 +124,8 @@ const projectData = {
             },
             {
               type: 'image',
-              url: 'media/circuit.jpg',
-              caption: 'ros2 node architecture',
+              url: 'media/images/object-stacking.png',
+              caption: 'RL packing plan visualisation',
             },
           ],
         },
@@ -152,7 +152,7 @@ const projectData = {
             },
             {
               type: 'image',
-              url: 'media/gripper.jpg',
+              url: 'media/images/custom-gripper.png',
               caption: 'compliant gripper prototype',
             },
           ],
@@ -175,7 +175,7 @@ const projectData = {
             },
             {
               type: 'image',
-              url: 'media/gantry.jpg',
+              url: 'media/images/multi_marker.png',
               caption: 'ur7e manipulator setup',
             },
           ],
@@ -198,7 +198,7 @@ const projectData = {
             },
             {
               type: 'html',
-              content: '<div style="width: 100%; height: 500px; background: #f5f5f5;"><model-viewer src="media/tetrisbot.glb" camera-controls auto-rotate shadow-intensity="1" style="width: 100%; height: 100%; background-color: white;"></model-viewer></div>',
+              content: '<div style="width: 100%; height: 500px; background: #f5f5f5;"><model-viewer src="media/3d_models/gripper.glb" camera-controls auto-rotate shadow-intensity="1" style="width: 100%; height: 100%; background-color: white;"></model-viewer></div>',
             },
           ],
         },
