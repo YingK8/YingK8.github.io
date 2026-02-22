@@ -52,6 +52,7 @@ export function Projects({ isActive }: ProjectsProps) {
           <Link
             key={index}
             to={`/projects/${project.id}`}
+            className="block"
           >
             <motion.div
               initial={{ opacity: 0, x: 20 }}

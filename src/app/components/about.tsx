@@ -27,15 +27,13 @@ export function About({ isActive }: AboutProps) {
   }, []);
 
   const lines = [
-    '""""',
     'hi, i\'m a creative engineer,',
     'passionate about building',
     'beautiful things.',
     '',
     'i specialize in robotics,',
-    'graphics, industrial design',
-    'and bikes.',
-    '""""',
+    'graphics, industrial design,',
+    'and bikes?',
   ];
 
   return (

@@ -27,9 +27,11 @@ export function Skills({ isActive }: SkillsProps) {
   }, []);
 
   const skills = [
-    { category: 'frontend', items: ['react', 'typescript', 'css/tailwind'] },
-    { category: 'backend', items: ['node.js', 'python', 'postgresql'] },
-    { category: 'design', items: ['figma', 'ui/ux', 'minimalism'] },
+    { category: 'languages', items: ['c++', 'python', 'matlab'] },
+    { category: 'tools', items: ['linux', 'ros2','issacsim', 'docker', 'gitlab', 'pytorch'] },
+    { category: 'hardware', items: ['kicad', 'fusion360', 'rhino'] },
+    { category: 'coursework', items: ['robotics', 'feedback control', 'optimisation', 'machine learning', 'signal processing', 'probability'] },
+    // { category: 'design', items: ['figma', 'keyshot', 'adobe'] },
   ];
 
   return (
