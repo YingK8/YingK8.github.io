@@ -2,10 +2,11 @@ import { motion } from 'motion/react';
 
 interface HeaderProps {
   onNavigate: (section: string) => void;
+  onHoverSection?: (section: string) => void;
   currentSection: string;
 }
 
-export function Header({ onNavigate, currentSection }: HeaderProps) {
+export function Header({ onNavigate, onHoverSection, currentSection }: HeaderProps) {
   const navItems = ['about', 'projects', 'skills', 'contact'];
 
   return (
@@ -20,11 +21,12 @@ export function Header({ onNavigate, currentSection }: HeaderProps) {
             KEVIN YING
           </button>
           
-          <nav className="flex gap-8">
+          <nav className="flex gap-8" onMouseLeave={() => onHoverSection?.('')}>
             {navItems.map((item) => (
               <motion.button
                 key={item}
                 onClick={() => onNavigate(item)}
+                onMouseEnter={() => onHoverSection?.(item)}
                 className={`
                   text-sm transition-all duration-200
                   ${currentSection === item ? 'font-bold' : 'font-normal hover:font-bold'} text-black

@@ -80,7 +80,7 @@ export function Home() {
 
   return (
     <div className="min-h-screen bg-white text-black font-mono">
-      <Header onNavigate={scrollToSection} currentSection={currentSection} />
+      <Header onNavigate={scrollToSection} onHoverSection={setCurrentSection} currentSection={currentSection} />
       
       <main className="max-w-7xl mx-auto px-8 py-16">
         <div 
