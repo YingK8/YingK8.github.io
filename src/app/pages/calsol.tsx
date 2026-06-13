@@ -162,7 +162,7 @@ const projectData: { name: string; rows: ProjectRow[] } = {
           ],
         },
         {
-          title: 'project facts',
+          title: 'background',
           blocks: [
             {
               type: 'facts',
