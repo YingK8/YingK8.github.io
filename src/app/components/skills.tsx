@@ -28,10 +28,9 @@ export function Skills({ isActive }: SkillsProps) {
 
   const skills = [
     { category: 'languages', items: ['c++', 'python', 'matlab'] },
-    { category: 'tools', items: ['linux', 'ros2','issacsim', 'docker', 'gitlab', 'pytorch'] },
+    { category: 'tools', items: ['linux', 'ros2', 'issacsim', 'docker', 'gitlab', 'pytorch'] },
     { category: 'hardware', items: ['kicad', 'fusion360', 'rhino'] },
     { category: 'coursework', items: ['robotics', 'feedback control', 'optimisation', 'machine learning', 'signal processing', 'probability'] },
-    // { category: 'design', items: ['figma', 'keyshot', 'adobe'] },
   ];
 
   return (

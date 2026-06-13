@@ -27,12 +27,12 @@ export function About({ isActive }: AboutProps) {
   }, []);
 
   const lines = [
-    'hi, i\'m a creative engineer,',
+    "hi, i'm a creative engineer,",
     'passionate about building',
     'beautiful things.',
     '',
-    'i specialize in robotics,',
-    'graphics, industrial design,',
+    'i specialise in robotics,',
+    'industrial design,',
     'and bikes?',
   ];
 

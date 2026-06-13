@@ -613,7 +613,9 @@ export function ProjectDetail() {
               {row.sections.map((section, sectionIndex) => (
                 <div
                   key={sectionIndex}
-                  ref={(el) => (sectionRefs.current[`${rowIndex}-${section.title}`] = el)}
+                  ref={(el) => {
+                    sectionRefs.current[`${rowIndex}-${section.title}`] = el;
+                  }}
                   data-section={`${rowIndex}-${section.title}`}
                   onMouseEnter={() => setCurrentSection(`${rowIndex}-${section.title}`)}
                 >

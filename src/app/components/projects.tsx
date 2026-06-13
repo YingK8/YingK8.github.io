@@ -32,6 +32,7 @@ export function Projects({ isActive }: ProjectsProps) {
     { name: 'calSol', desc: 'ESP32 CANbus firmware', status: '100%', id: 'CalSol' },
     { name: 'flying micro robots', desc: 'liwei lin lab', status: '60%', id: 'liwei' },
     { name: 'a2rl competition team', desc: 'ai robotics @ berkeley', status: '20%', id: 'a2rl' },
+    { name: 'soy fish (S)', desc: 'fish night light', status: '100%', id: 'soy-fish' },
     { name: 'drone racing', desc: 'EECS 106B final project', status: '0%', id: '106B' },
     { name: 'computer graphics', desc: 'CS 184', status: '10%', id: '184' },
   ];

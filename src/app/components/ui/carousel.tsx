@@ -9,10 +9,10 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "./utils";
 import { Button } from "./button";
 
-type CarouselApi = UseEmblaCarouselType[1];
+type CarouselApi = UseEmblaCarouselType1;
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
-type CarouselOptions = UseCarouselParameters[0];
-type CarouselPlugin = UseCarouselParameters[1];
+type CarouselOptions = UseCarouselParameters0;
+type CarouselPlugin = UseCarouselParameters1;
 
 type CarouselProps = {
   opts?: CarouselOptions;
@@ -22,8 +22,8 @@ type CarouselProps = {
 };
 
 type CarouselContextProps = {
-  carouselRef: ReturnType<typeof useEmblaCarousel>[0];
-  api: ReturnType<typeof useEmblaCarousel>[1];
+  carouselRef: ReturnType<typeof useEmblaCarousel>0;
+  api: ReturnType<typeof useEmblaCarousel>1;
   scrollPrev: () => void;
   scrollNext: () => void;
   canScrollPrev: boolean;
@@ -51,15 +51,15 @@ function Carousel({
   children,
   ...props
 }: React.ComponentProps<"div"> & CarouselProps) {
-  const [carouselRef, api] = useEmblaCarousel(
+  const carouselRef, api = useEmblaCarousel(
     {
       ...opts,
       axis: orientation === "horizontal" ? "x" : "y",
     },
     plugins,
   );
-  const [canScrollPrev, setCanScrollPrev] = React.useState(false);
-  const [canScrollNext, setCanScrollNext] = React.useState(false);
+  const canScrollPrev, setCanScrollPrev = React.useState(false);
+  const canScrollNext, setCanScrollNext = React.useState(false);
 
   const onSelect = React.useCallback((api: CarouselApi) => {
     if (!api) return;
@@ -69,11 +69,11 @@ function Carousel({
 
   const scrollPrev = React.useCallback(() => {
     api?.scrollPrev();
-  }, [api]);
+  }, api);
 
   const scrollNext = React.useCallback(() => {
     api?.scrollNext();
-  }, [api]);
+  }, api);
 
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -85,13 +85,13 @@ function Carousel({
         scrollNext();
       }
     },
-    [scrollPrev, scrollNext],
+    scrollPrev, scrollNext,
   );
 
   React.useEffect(() => {
     if (!api || !setApi) return;
     setApi(api);
-  }, [api, setApi]);
+  }, api, setApi);
 
   React.useEffect(() => {
     if (!api) return;
@@ -102,7 +102,7 @@ function Carousel({
     return () => {
       api?.off("select", onSelect);
     };
-  }, [api, onSelect]);
+  }, api, onSelect);
 
   return (
     <CarouselContext.Provider

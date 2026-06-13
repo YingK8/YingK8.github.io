@@ -10,7 +10,7 @@ export function Contact({ isActive }: ContactProps) {
       initial={{ opacity: 0.5, y: 30 }}
       animate={{ opacity: isActive ? 1 : 0.3, y: 0 }}
       transition={{ duration: 0.8, delay: 0.3 }}
-      className="mt-24"
+      className="mt-12"
     >
     </motion.section>
   );
