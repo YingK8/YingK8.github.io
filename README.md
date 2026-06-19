@@ -1,7 +1,7 @@
 
-  # Minimalist Portfolio Website
+  # Kevin Ying
 
-  This is a code bundle for Minimalist Portfolio Website. The original project is available at https://www.figma.com/design/IajZ3RfE1UClLNPt5pRz1B/Minimalist-Portfolio-Website.
+  This is a code bundle for Kevin Ying. The original project is available at https://www.figma.com/design/IajZ3RfE1UClLNPt5pRz1B/Minimalist-Portfolio-Website.
 
   ## Local preview
 

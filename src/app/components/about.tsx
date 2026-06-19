@@ -34,6 +34,7 @@ export function About({ isActive }: AboutProps) {
     'i specialise in robotics,',
     'industrial design,',
     'and bikes?',
+    '🪑🦘🦆🚲'
   ];
 
   return (
